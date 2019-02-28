@@ -1,0 +1,37 @@
+{% extends 'auth-templates/base-auth.html'%}
+
+{% block authTemplate %}
+
+{{block.super}}
+
+<!-- The Body container -->
+<section class="page-container">
+
+    <!-- Intro message section -->
+    <div class="intro-message-section">
+
+        <h2>Welcome Back</h2>
+        <p>To keep connected with us,please login with your personal info</p>
+        <a href="{% url 'signup' %}">Sign Up</a>
+
+    </div>
+
+    <!-- Form display section -->
+    <div class="form-dispay-section">
+
+        <h2>Sign in to Lorre</h2>
+        <p>Sign in with your email account</p>
+
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+
+            <input type="email" name="email" id="login-email" class="email-input">
+            <input type="password" name="password" id="login-password" class="password-input">
+            <input type="submit" class="submit" value="SIGN IN">
+
+        </form>
+
+    </div>
+
+
+</section>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
+
 # Create your views here.
 
 def overview_week(request):
@@ -54,6 +55,6 @@ def signup(request):
         print(newUser.id)
         newUser.save()
 
-    
+    return render(request,"auth-templates/login")
 
         
