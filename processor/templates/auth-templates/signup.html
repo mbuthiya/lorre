@@ -18,7 +18,7 @@
     </div>
 
     <!-- Form display section -->
-    <div class="form-dispay-section">
+    <div class="form-display-section">
 
         <h2>Create Account</h2>
         <p>use your email for registration</p>
@@ -26,9 +26,9 @@
         <form action="{% url 'signup' %}" method="POST">
             {% csrf_token %}
 
-            <input type="text" name="companyName" id="signup-email" class="email-input">
-            <input type="email" name="email" id="signup-email" class="email-input">
-            <input type="password" name="password" id="signup-password" class="password-input">
+            <input type="text" name="companyName" id="signup-company" class="email-input" placeholder="Company Name" required>
+            <input type="email" name="email" id="signup-email" class="email-input" placeholder="Email Address" required>
+            <input type="password" name="password" id="signup-password" class="password-input" required placeholder="Password">
             <input type="submit" class="submit" value="SIGN UP">
 
         </form>

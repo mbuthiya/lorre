@@ -1,3 +1,128 @@
 body{
-    background-color: aqua;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.page-container{
+    display: flex;
+    height: 100vh;
+}
+
+.intro-message-section{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 40px;  
+    background: url(/static/images/background.png) no-repeat center center;
+    background-size: cover;
+    border-top-right-radius: 5px;
+
+}
+
+.intro-message-section h2{
+    margin-top:40vh;
+    font-family: Roboto;
+    font-size: 40px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #fcfaf4;
+}
+
+
+.intro-message-section p{
+    font-family: Roboto;
+    font-size: 16px;
+    text-align: center;
+    color: #fcfaf4;
+    margin-bottom: 40px;
+   
+}
+
+.intro-message-section a{
+    
+    padding: 15px 50px;
+    border-radius: 32px;
+    border: 2px solid #fcfaf4;
+    color: #fcfaf4;
+    font-family: Roboto;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+
+}
+
+.intro-message-section a:hover{
+    padding: 15px 45px;
+    border-radius: 32px;
+    background-color: #fcfaf4;
+    color: #596747;
+}
+
+.form-display-section{
+    flex:3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fcfaf4;
+    
+    
+}
+
+.form-display-section h2{
+    margin-top: 25vh;
+    font-size: 40px;
+    font-family: Roboto;
+    font-weight: bold;
+    color: #596747;
+    margin-bottom: 20px;
+}
+
+.form-display-section p{
+    color: rgba(89, 103, 71, 0.6);
+    font-weight: bold;
+    font-family: Roboto;
+
+}
+
+.form-display-section form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.form-display-section form input{
+    align-self: center;
+    padding: 15px 5px;
+    margin-bottom: 40px;
+    border: none;
+    width: 25vw;
+    background-color: #dae0d2;
+    font-family: Roboto;
+}
+
+.form-display-section form input:focus{
+   outline-color: #ddc35e;
+}
+
+.forgotPass{
+    text-align: center;
+    font-weight: normal;
+    color: #ddc35e !important;
+}
+
+.form-display-section input[type="submit"]{
+     width: 15vw;
+     padding: 15px 10px;
+     border-radius: 32px;
+     background-color: #596747;
+     color: #fcfaf4;
+    box-shadow: 1px 5px 5px rgba(89, 103, 71, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.form-display-section input[type="submit"]:hover{
+    box-shadow:none;
 }
