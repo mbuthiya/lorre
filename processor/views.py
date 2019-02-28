@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 
 
 # Create your views here.
 
 def overview_week(request):
-    pass
+    return HttpResponse("HELLO")
 
 
 def overview_trend(request):
@@ -62,7 +62,7 @@ def signup(request):
         return redirect("week")
         
 
-    return render(request,"auth-templates/login.html")
+    return render(request,"auth-templates/signup.html")
 
 
 def loginFunction(request):
@@ -80,10 +80,13 @@ def loginFunction(request):
             login(request,user)
             return redirect("week")
 
-    return render(request, "auth-templates/signup.html")
+    return render(request, "auth-templates/login.html")
 
 
-
+def logoutFunction(request):
+    logout(request)
+    return redirect("login")
+    
 
 
         
