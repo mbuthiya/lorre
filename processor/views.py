@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required
 def overview_week(request):
-    return HttpResponse("HELLO")
+    
+   render(request,"dashboard-templates/week-data.html")
 
 
 @login_required
