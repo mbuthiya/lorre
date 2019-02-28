@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
@@ -54,8 +54,13 @@ def signup(request):
         #Add user to the database
         newUser = User.objects.create_user(username=username,email=email,password=password)
         newUser.save()
+
         print(newUser.id)
+
+        # Login and redirect new user
         login(request,newUser)
+        return redirect("week")
+        
 
     return render(request,"auth-templates/login.html")
 
@@ -71,7 +76,9 @@ def loginFunction(request):
         # Authenticate if user exists
         user = authenticate(request,email=email,password=password)
         if user is not None:
+            # Login user and redirect them to week page
             login(request,user)
+            return redirect("week")
 
     return render(request, "auth-templates/signup.html")
 
