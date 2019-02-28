@@ -13,7 +13,8 @@ urlpatterns = [
     path('workers/<int:id>', views.single_worker,name="worker"),
     path('reports/<int:id>', views.single_report,name="report"),
     path('login/',views.loginFunction,name="login"),
-    path('signup/',views.signup,name="signup")
+    path('signup/',views.signup,name="signup"),
+    path("logout/",views.logoutFunction, name="logout")
 ]
 
 
