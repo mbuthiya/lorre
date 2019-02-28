@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login
 
 
 # Create your views here.
@@ -52,9 +53,30 @@ def signup(request):
 
         #Add user to the database
         newUser = User.objects.create_user(username=username,email=email,password=password)
-        print(newUser.id)
         newUser.save()
+        print(newUser.id)
+        login(request,newUser)
 
-    return render(request,"auth-templates/login")
+    return render(request,"auth-templates/login.html")
+
+
+def loginFunction(request):
+    
+    if request.method == "POST":
+
+        # Grab form data
+        email = request.POST["email"]
+        password = request.POST["passoword"]
+
+        # Authenticate if user exists
+        user = authenticate(request,email=email,password=password)
+        if user is not None:
+            login(request,user)
+
+    return render(request, "auth-templates/signup.html")
+
+
+
+
 
         
