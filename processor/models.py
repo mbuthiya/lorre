@@ -48,7 +48,7 @@ class Farm(models.Model):
         return self.farmer_name
 
 
-class season(models.Model):
+class Season(models.Model):
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
     planting_date = models.DateField()
     expected_harvest_date = models.DateField()
