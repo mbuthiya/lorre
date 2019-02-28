@@ -7,9 +7,12 @@ from django.contrib.auth.models import User
 class Crop(models.Model):
     name = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.name
 
 class Processor(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
     country = models.CharField(max_length = 50,null=True)
     primary_product = models.ForeignKey(
         Crop, on_delete=models.SET_NULL, null=True)
@@ -18,7 +21,8 @@ class Processor(models.Model):
         upload_to="processor_profiles", null=True)
     
     def __str__(self):
-        return self.user
+        return self.company_name
+
 
 
 class ExtensionWorker(models.Model):
@@ -26,12 +30,12 @@ class ExtensionWorker(models.Model):
     first_name = models.CharField(max_length = 40)
     last_name = models.CharField(max_length = 40)
     profile_image = models.ImageField(upload_to="worker_images")
-    phone_number = models.IntegerField(max_length=10)
+    phone_number = models.IntegerField()
     started_work = models.DateField()
     gender=models.CharField(max_length=8)
 
     def __str__(self):
-        return self.processor
+        return self.first_name
 
 
 class Farm(models.Model):
@@ -40,9 +44,9 @@ class Farm(models.Model):
     farmer_name = models.CharField(max_length=50)
     village_name = models.CharField(max_length=50)
     date_added = models.DateField(auto_now=True)
-    latitude = models.CharField()
-    longitude = models.CharField()
-    farm_code=models.CharField()
+    latitude = models.CharField(max_length=200)
+    longitude = models.CharField(max_length=200)
+    farm_code = models.CharField(max_length=200)
 
     def __str__(self):
         return self.farmer_name
@@ -55,5 +59,5 @@ class Season(models.Model):
     estimated_yield = models.IntegerField()
 
     def __str__(self):
-        return self 
+        return "Season"
     
