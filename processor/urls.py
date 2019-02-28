@@ -11,7 +11,9 @@ urlpatterns = [
     path('requests/', views.farms_request,name="requests"),
     path('farms/<int:id>', views.single_farm,name="farm"),
     path('workers/<int:id>', views.single_worker,name="worker"),
-    path('reports/<int:id>', views.single_report,name="report")
+    path('reports/<int:id>', views.single_report,name="report"),
+    path('login/',views.loginFunction,name="login"),
+    path('signup/',views.signup,name="signup")
 ]
 
 
