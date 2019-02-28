@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard {{title}} </title>
+    <link rel="stylesheet" href="{% static 'css/authTemplate.css' %}">
+</head>
+
+<body>
+
+    <section class="dashboard-body">
+
+        <!-- Dahboard Menu -->
+        <section class="dashboard-menu">
+
+            <!-- Company logo -->
+            <div class="company-profile">
+                {% block companyProfile %}{% endblock %}
+            </div>
+
+            <!-- TODO add icons to menu Items -->
+            <div class="overview menu-section">
+
+                <div class="menu-section-header">
+                    <h3>overview</h3>
+                </div>
+                <!-- Menu-section-list -->
+                <ul>
+                    <div class="menu-section-list">
+                        <li>This week</li>
+                    </div>
+
+                    <div class="menu-section-list">
+                        <li>Produce Trend</li>
+                    </div>
+                    
+                </ul>
+            </div>
+
+            <!-- TODO add icons to menu Items -->
+            <div class="farm menu-section">
+
+                <div class="menu-section-header">
+                    <h3>Farms</h3>
+                </div>
+                <!-- Menu-section-list -->
+                <ul>
+                    <div class="menu-section-list">
+                        <li>Our Farms</li>
+                    </div>
+
+                    <div class="menu-section-list">
+                        <li>Our Workers</li>
+                    </div>
+
+                    <div class="menu-section-list">
+                        <li>Farm Requests</li>
+                    </div>
+                </ul>
+            </div>
+
+            <!-- TODO add icons to menu Items -->
+            <div class="profile menu-section">
+
+                <div class="menu-section-header">
+                    <h3>Profile</h3>
+                </div>
+                <!-- Menu-section-list -->
+                <ul>
+                    <div class="menu-section-list">
+                        <li>Notifications</li>
+                    </div>
+
+                    <div class="menu-section-list">
+                        <li><a href="{%url 'logout'%}">Logout</a></li>
+                    </div>
+                </ul>
+            </div>
+
+
+        </section>
+
+        <!-- Dashboard Content -->
+        <section class="dashboard-content">
+            {% block dashContent %} {% endblock %}
+        </section>
+
+
+    </section>
+
+</body>
+
+</html>
