@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -39,3 +40,20 @@ def single_report(request,id):
     pass
 
 
+def signup(request):
+
+    if request.method == "POST":
+
+        # Grab form data
+        username = request.POST["companyName"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+
+        #Add user to the database
+        newUser = User.objects.create_user(username=username,email=email,password=password)
+        print(newUser.id)
+        newUser.save()
+
+    
+
+        
