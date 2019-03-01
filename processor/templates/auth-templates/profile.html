@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lorre Set up profile {{processor.company_name}}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+
+<body>
+    <form action="{% url 'profile' processor.id %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token%}
+
+        <div class="form-image">
+            <input type="file" name="image" required>
+            <p>{{processor.company_name}}</p>
+        </div>
+        <div class="form-details">
+            <input type="text" name="cCountry" placeholder="Country of Operations">
+            <input type="text" name="measure" placeholder="Company Unit of measure: ie Kg, Liter">
+            <select name="product" >
+                {% for product in products%}
+                <option value="{{product.id}}">{{product.name}}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="Save Profile">
+        </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/profile.js"></script>
+</body>
+
+</html>

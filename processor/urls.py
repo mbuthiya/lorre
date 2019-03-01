@@ -18,7 +18,7 @@ urlpatterns = [
     path('login/',views.loginFunction,name="login"),
     path('signup/',views.signup,name="signup"),
     path("logout/",views.logoutFunction, name="logout"),
-    path("profile/",views.profile,name="profile")
+    path("profile/<int:id>",views.profile,name="profile")
 ]
 
 if settings.DEBUG:

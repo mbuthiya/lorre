@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-
-from .models import Processor
+from django.core.files.storage import FileSystemStorage
+from .models import Processor,Crop
 
 
 # Create your views here.
@@ -21,8 +21,7 @@ def overview_week(request):
     except ObjectDoesNotExist:
         print("User Does Not Exist")
 
-
-    return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName":"dashboard-templates/week-data.html","current_processor":current_processor})
+    return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor})
 
 
 @login_required
@@ -47,26 +46,52 @@ def farms_workers(request):
 
 @login_required
 def farms_request(request):
-    pass 
-
-
-@login_required
-def single_farm(request,id):
     pass
 
 
 @login_required
-def single_worker(request,id):
+def single_farm(request, id):
     pass
 
 
 @login_required
-def single_report(request,id):
+def single_worker(request, id):
     pass
 
 
-def profile(request,procesor):
+@login_required
+def single_report(request, id):
     pass
+
+
+def profile(request, id):
+
+    if request.method == "POST" and request.FILES['image']:
+        
+        country = request.POST["cCountry"]
+        unit_of_measure = request.POST["measure"]
+        company_image = request.FILES["image"]
+        product = request.POST["product"]
+
+        fs = FileSystemStorage()
+        filename = fs.save(company_image.name,company_image)
+        try:
+            primary_product=Crop.objects.get(pk=int(product))
+
+            Processor.objects.filter(id=id).update(country=country,
+                        unit_of_measure=unit_of_measure, company_image=filename,primary_product=primary_product)
+            return redirect("week")
+        except:
+            print("Error")
+    try:
+         processor = Processor.objects.get(pk=id)
+
+    except ObjectDoesNotExist:
+        print("Error")
+        
+    products = Crop.objects.all()
+    return render(request, "auth-templates/profile.html",{"processor":processor,"products":products})
+
 
 def signup(request):
 
@@ -77,7 +102,7 @@ def signup(request):
         email = request.POST["email"]
         password = request.POST["password"]
 
-        #Add user to the database
+        # Add user to the database
         newUser = User.objects.create_user(username=username,email=email,password=password)
         newUser.save()
 
@@ -85,9 +110,11 @@ def signup(request):
         newProcessor = Processor(user=newUser,company_name=username)
         newProcessor.save()
 
+        print(newProcessor.id)
+
         # Login and redirect new user
         login(request,newUser)
-        return redirect("profile",newProcessor)
+        return redirect("profile",newProcessor.id)
         
 
     return render(request,"auth-templates/signup.html")
