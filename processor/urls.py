@@ -17,7 +17,8 @@ urlpatterns = [
     path('reports/<int:id>', views.single_report,name="report"),
     path('login/',views.loginFunction,name="login"),
     path('signup/',views.signup,name="signup"),
-    path("logout/",views.logoutFunction, name="logout")
+    path("logout/",views.logoutFunction, name="logout"),
+    path("profile/",views.profile,name="profile")
 ]
 
 if settings.DEBUG:

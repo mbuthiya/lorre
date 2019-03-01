@@ -1,11 +1,11 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Processor
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 
+from .models import Processor
 
 
 # Create your views here.
@@ -65,6 +65,9 @@ def single_report(request,id):
     pass
 
 
+def profile(request,procesor):
+    pass
+
 def signup(request):
 
     if request.method == "POST":
@@ -84,7 +87,7 @@ def signup(request):
 
         # Login and redirect new user
         login(request,newUser)
-        return redirect("week")
+        return redirect("profile",newProcessor)
         
 
     return render(request,"auth-templates/signup.html")
@@ -106,7 +109,9 @@ def loginFunction(request):
             # Login user and redirect them to week page
             login(request,user)
             return redirect("week")
-            
+        else:
+            return redirect("signup")
+
 
 
     return render(request, "auth-templates/login.html")
@@ -115,7 +120,3 @@ def loginFunction(request):
 def logoutFunction(request):
     logout(request)
     return redirect("login")
-    
-
-
-        
