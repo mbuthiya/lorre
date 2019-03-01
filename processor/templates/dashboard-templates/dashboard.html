@@ -9,6 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard {{title}} </title>
     <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
 </head>
@@ -20,71 +23,72 @@
         <!-- Dahboard Menu -->
         <section class="dashboard-menu">
 
-            <!-- Company logo -->
-            <div class="company-profile">
-                <img src="{{current_processor.company_image.url}}" alt="{{current_processor.company_name}} Image">
-                <h4>{{current_processor.company_name}}</h4>
-            </div>
-
-            <!-- TODO add icons to menu Items -->
-            <div class="overview menu-section">
-
-                <div class="menu-section-header">
-                    <h3>Overview</h3>
+            <div class="dashboard-menu-content">
+                <!-- Company logo -->
+                <div class="company-profile">
+                    <img src="{{current_processor.company_image.url}}" alt="{{current_processor.company_name}} Image">
+                    <h4>{{current_processor.company_name}}</h4>
                 </div>
-                <!-- Menu-section-list -->
-                <ul>
-                    <div class="menu-section-list">
-                        <li>This week</li>
+
+                <!-- TODO add icons to menu Items -->
+                <div class="overview menu-section">
+
+                    <div class="menu-section-header">
+                        <h3>Overview</h3>
                     </div>
+                    <!-- Menu-section-list -->
+                    <ul>
+                        <div class="menu-section-list">
+                            <li> <i class="fas fa-calendar-week"></i> This week</li>
+                        </div>
 
-                    <div class="menu-section-list">
-                        <li>Produce Trend</li>
-                    </div>
+                        <div class="menu-section-list">
+                            <li> <i class="far fa-chart-bar"></i> Produce Trend</li>
+                        </div>
 
-                </ul>
-            </div>
-
-            <!-- TODO add icons to menu Items -->
-            <div class="farm menu-section">
-
-                <div class="menu-section-header">
-                    <h3>Farms</h3>
+                    </ul>
                 </div>
-                <!-- Menu-section-list -->
-                <ul>
-                    <div class="menu-section-list">
-                        <li>Our Farms</li>
+
+                <!-- TODO add icons to menu Items -->
+                <div class="farm menu-section">
+
+                    <div class="menu-section-header">
+                        <h3>Farms</h3>
                     </div>
+                    <!-- Menu-section-list -->
+                    <ul>
+                        <div class="menu-section-list">
+                            <li> <i class="fas fa-carrot"></i> Our Farms</li>
+                        </div>
 
-                    <div class="menu-section-list">
-                        <li>Our Workers</li>
-                    </div>
+                        <div class="menu-section-list">
+                            <li> <i class="fas fa-people-carry"></i> Our Workers</li>
+                        </div>
 
-                    <div class="menu-section-list">
-                        <li>Farm Requests</li>
-                    </div>
-                </ul>
-            </div>
-
-            <!-- TODO add icons to menu Items -->
-            <div class="profile menu-section">
-
-                <div class="menu-section-header">
-                    <h3>Profile</h3>
+                        <div class="menu-section-list">
+                            <li> <i class="fas fa-flag"></i> Farm Requests</li>
+                        </div>
+                    </ul>
                 </div>
-                <!-- Menu-section-list -->
-                <ul>
-                    <div class="menu-section-list">
-                        <li>Notifications</li>
-                    </div>
 
-                    <div class="menu-section-list">
-                        <li><a href="{%url 'logout'%}">Logout</a></li>
+                <!-- TODO add icons to menu Items -->
+                <div class="profile menu-section">
+
+                    <div class="menu-section-header">
+                        <h3>Profile</h3>
                     </div>
-                </ul>
+                    <!-- Menu-section-list -->
+                    <ul>
+                        <div class="menu-section-list">
+                            <li> <i class="fas fa-bell"></i> Notifications</li>
+                        </div>
+
+                        <div class="menu-section-list">
+                            <li><i class="fas fa-sign-out-alt"></i> <a href="{%url 'logout'%}">Logout</a></li>
+                        </div>
+                    </ul>
+                </div>
             </div>
-
 
         </section>
 
