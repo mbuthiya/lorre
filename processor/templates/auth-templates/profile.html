@@ -14,17 +14,28 @@
 </head>
 
 <body>
+
+
+    <h2>One Last Step: Set Up your Company Profile</h2>
+
     <form action="{% url 'profile' processor.id %}" enctype="multipart/form-data" method="POST">
         {% csrf_token%}
-
         <div class="form-image">
-            <input type="file" name="image" required>
-            <p>{{processor.company_name}}</p>
+            <label for="image" class="image-upload">
+                <input type="file" name="image" id="image" required>
+                Upload Company image
+            </label>
+
+            <div class="image-uploaded">
+                <img src="" alt="" class="imageuploaded">
+            </div>
+
+            <h3>{{processor.company_name}}</h3>
         </div>
         <div class="form-details">
             <input type="text" name="cCountry" placeholder="Country of Operations">
             <input type="text" name="measure" placeholder="Company Unit of measure: ie Kg, Liter">
-            <select name="product" >
+            <select name="product">
                 {% for product in products%}
                 <option value="{{product.id}}">{{product.name}}</option>
                 {% endfor %}
