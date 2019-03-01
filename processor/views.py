@@ -3,13 +3,26 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Processor
+
 
 
 # Create your views here.
 @login_required
 def overview_week(request):
-    
-   render(request,"dashboard-templates/week-data.html")
+
+    # Get the company information
+    user = request.user
+    current_processor = None
+    try:
+        current_processor = Processor.objects.get(user=user)
+
+    except ObjectDoesNotExist:
+        print("User Does Not Exist")
+
+
+    return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName":"dashboard-templates/week-data.html","current_processor":current_processor})
 
 
 @login_required
@@ -64,6 +77,10 @@ def signup(request):
         #Add user to the database
         newUser = User.objects.create_user(username=username,email=email,password=password)
         newUser.save()
+
+        # Create a new Processor 
+        newProcessor = Processor(user=newUser,company_name=username)
+        newProcessor.save()
 
         # Login and redirect new user
         login(request,newUser)

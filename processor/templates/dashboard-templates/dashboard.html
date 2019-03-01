@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard {{title}} </title>
-    <link rel="stylesheet" href="{% static 'css/authTemplate.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
 </head>
 
 <body>
@@ -18,14 +22,15 @@
 
             <!-- Company logo -->
             <div class="company-profile">
-                {% block companyProfile %}{% endblock %}
+                <img src="{{current_processor.company_image.url}}" alt="{{current_processor.company_name}} Image">
+                <h4>{{current_processor.company_name}}</h4>
             </div>
 
             <!-- TODO add icons to menu Items -->
             <div class="overview menu-section">
 
                 <div class="menu-section-header">
-                    <h3>overview</h3>
+                    <h3>Overview</h3>
                 </div>
                 <!-- Menu-section-list -->
                 <ul>
@@ -36,7 +41,7 @@
                     <div class="menu-section-list">
                         <li>Produce Trend</li>
                     </div>
-                    
+
                 </ul>
             </div>
 
@@ -85,7 +90,7 @@
 
         <!-- Dashboard Content -->
         <section class="dashboard-content">
-            {% block dashContent %} {% endblock %}
+            {% include templateName %}
         </section>
 
 
