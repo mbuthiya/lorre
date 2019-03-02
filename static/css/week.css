@@ -125,6 +125,7 @@ table {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 90vh;
 }
 
 .addworkers h2 {
@@ -132,16 +133,19 @@ table {
     font-family: Heebo;
     font-size: 40px;
     font-weight: bold;
-    color: #fcfaf4;
+    color: #596747;
 
 }
 
 .addworkers a {
-    width: 15vw;
+    width: 10vw;
     background-color: #596747;
     color: #fcfaf4;
+    text-align: center;
     padding: 15px 50px;
     border-radius: 32px;
     border: 2px solid #fcfaf4;
+    text-decoration: none;
+    font-family: Heebo;
     
 }
