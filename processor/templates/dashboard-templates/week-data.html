@@ -30,12 +30,12 @@
             <div class="this-week-data">
                 <!-- This week chart -->
                 <div class="chart">
-
+                    {{data.harvest_chart|safe}}
                 </div>
 
                 <!-- Data intepretation -->
                 <div class="chart-Interprate">
-
+                    <p>This week you should expect <span> {{data.harvest_amount}} Kgs </span> of produce coming in</p>
                 </div>
             </div>
 
@@ -47,10 +47,36 @@
             <div class="source-farm-header">
                 <hr>
                 <h3>Harvest Farms this Week</h3>
+
+                <div class="harvest-farm-table" id="harvest-farm-table">
+
+                    <table>
+                        <tr>
+                            <th>Farm Id</th>
+                            <th>Farmer Name</th>
+                            <th>Farm Location</th>
+                            <th>Farm Manager</th>
+                        </tr>
+
+                        {% if data.farms%}
+                        {% for farm in data.farms%}
+                        <tr>
+                            <td>{{farm.farm_code}}</td>
+                            <td>{{farm.farmer_name}}</td>
+                            <td>{{farm.village_name}}</td>
+                            <td>{{farm.manager.first_name}} {{farm.manager.last_name}}</td>
+                        </tr>
+                        {%endfor%}
+                        {%else%}
+                        <td colspan="4" class="empty">There are no farms harvesting this week</td>
+                        {%endif%}
+                    </table>
+                </div>
             </div>
         </section>
         <!-- Source farms end -->
     </section>
+    <script type="text/javascript" src="http://kozea.github.com/pygal.js/latest/pygal-tooltips.min.js"></script>
 </body>
 
 </html>

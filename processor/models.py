@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime
 # Create your models here.
 
 
@@ -60,4 +60,17 @@ class Season(models.Model):
 
     def __str__(self):
         return "Season"
+
+    @classmethod
+    def this_weeks_harvest(cls):
+        this_week = datetime.isocalendar(datetime.today())[1]
+
+        harvest = [harvest_season for harvest_season in cls.objects.all(
+        ) if datetime.isocalendar(harvest_season.expected_harvest_date)[1] == this_week]
+
+        harvestAmount = sum([amount.estimated_yield for amount in harvest])
+        
+        farms = [farms.farm for farms in harvest]
+
+        return harvestAmount,farms
     

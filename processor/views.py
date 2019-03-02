@@ -5,7 +5,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse,HttpResponseServerError
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
-from .models import Processor,Crop
+from .models import Processor,Crop,Season
+from .charts import ThisWeekHarvest
+
 
 
 # Create your views here.
@@ -16,8 +18,18 @@ def overview_week(request):
 
     if current_processor == None:
         return HttpResponseServerError
+    
+    harvest_chart = ThisWeekHarvest(
+        height=500,
+        width=600,
+        explicit_size=True,
+    ).generate()
+   
 
-    return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor})
+    harvest_amount, farms = Season.this_weeks_harvest()
+    data = {"harvest_chart": harvest_chart, "harvest_amount":harvest_amount, "farms": farms}
+
+    return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
 
 
 @login_required
