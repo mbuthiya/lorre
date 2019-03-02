@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseServerError
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
 from .models import Processor,Crop
@@ -12,14 +12,10 @@ from .models import Processor,Crop
 @login_required
 def overview_week(request):
 
-    # Get the company information
-    user = request.user
-    current_processor = None
-    try:
-        current_processor = Processor.objects.get(user=user)
+    current_processor = getUser(request)
 
-    except ObjectDoesNotExist:
-        print("User Does Not Exist")
+    if current_processor == None:
+        return HttpResponseServerError
 
     return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor})
 
@@ -129,7 +125,11 @@ def loginFunction(request):
         password = request.POST.get("password")
 
         # Authenticate if user exists
-        userEmail =User.objects.get(email=email)
+        try:
+            userEmail = User.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return redirect("signup")
+
         user = authenticate(request,username=userEmail.username,password=password)
 
         if user is not None:
@@ -147,3 +147,16 @@ def loginFunction(request):
 def logoutFunction(request):
     logout(request)
     return redirect("login")
+
+
+def getUser(request):
+    # Get the company information
+    user = request.user
+    current_processor = None
+    try:
+        current_processor = Processor.objects.get(user=user)
+
+    except ObjectDoesNotExist:
+        print("User Does Not Exist")
+
+    return current_processor

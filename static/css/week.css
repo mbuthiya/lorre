@@ -1,0 +1,63 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #fcfaf4;
+    box-sizing: border-box;
+}
+
+
+.week-header{
+    background-color: #0b0d09;
+    height: 10vh;
+}
+
+.week-header h2{
+    margin: 0;
+    padding: 2vh 2vw;
+    font-family: Heebo;
+    font-size: 25px;
+    font-weight: bold;
+    color: #fcfaf4;
+}
+
+.week-header h2 i{
+    color: #ddc35e;
+    margin-left: 10px;
+}
+
+
+.week-body{
+    overflow-y: auto;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.this-week,
+.source-farms{
+    width: 80vw;
+    margin-top: 10vh;
+    
+}
+
+.this-week hr,
+.source-farms hr{
+    width: 10vw;
+    margin: 0;
+    border: none;
+    height: 4px;
+    color: #ddc35e;
+    /* old IE */
+    background-color:#ddc35e;
+}
+
+
+.this-week h3,
+.source-farms h3{
+    font-family: Heebo;
+    font-size: 20px;
+    font-weight: bold;
+    color: #596747;
+}
