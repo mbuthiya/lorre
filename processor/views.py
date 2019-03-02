@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse,HttpResponseServerError
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
-from .models import Processor,Crop,Season
+from .models import Processor,Crop,Season,ExtensionWorker
 from .charts import ThisWeekHarvest
 
 
@@ -14,15 +14,19 @@ from .charts import ThisWeekHarvest
 @login_required
 def overview_week(request):
 
-    current_processor = getUser(request)
+    current_processor,workers = getUser(request)
 
     if current_processor == None:
         return HttpResponseServerError
     
+    if not workers:
+        data ={}
+        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
+
     harvest_chart = ThisWeekHarvest(
         height=500,
-        width=600,
-        explicit_size=True,
+        width=500,
+    
     ).generate()
    
 
@@ -165,10 +169,18 @@ def getUser(request):
     # Get the company information
     user = request.user
     current_processor = None
+    has_workers = False
+
     try:
         current_processor = Processor.objects.get(user=user)
-
+       
     except ObjectDoesNotExist:
         print("User Does Not Exist")
+    
+    workers = [workers for workers in ExtensionWorker.objects.filter(processor=current_processor)]
 
-    return current_processor
+    if len(workers) > 0:
+        has_workers =True
+
+
+    return current_processor,has_workers

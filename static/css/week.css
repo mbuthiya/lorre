@@ -1,4 +1,4 @@
-body{
+body {
     padding: 0;
     margin: 0;
     background-color: #fcfaf4;
@@ -6,12 +6,12 @@ body{
 }
 
 
-.week-header{
+.week-header {
     background-color: #0b0d09;
     height: 10vh;
 }
 
-.week-header h2{
+.week-header h2 {
     margin: 0;
     padding: 2vh 2vw;
     font-family: Heebo;
@@ -20,74 +20,76 @@ body{
     color: #fcfaf4;
 }
 
-.week-header h2 i{
+.week-header h2 i {
     color: #ddc35e;
     margin-left: 10px;
 }
 
 
-.week-body{
+.week-body {
     overflow-y: auto;
     height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 .this-week,
-.source-farms{
+.source-farms {
     width: 80vw;
     margin-top: 10vh;
-    
+
 }
 
 .this-week hr,
-.source-farms hr{
+.source-farms hr {
     width: 10vw;
     margin: 0;
     border: none;
     height: 4px;
     color: #ddc35e;
     /* old IE */
-    background-color:#ddc35e;
+    background-color: #ddc35e;
 }
 
 
 .this-week h3,
-.source-farms h3{
+.source-farms h3 {
     font-family: Heebo;
     font-size: 20px;
     font-weight: bold;
     color: #596747;
 }
 
-.this-week-data{
+.this-week-data {
     display: flex;
     justify-content: space-between;
 }
 
-.this-week-data .chart{
+.this-week-data .chart {
     flex: 1;
 }
-.chart-Interprate{
+
+.chart-Interprate {
     flex: 1;
     display: flex;
     align-items: center;
 }
-.chart-Interprate p{
+
+.chart-Interprate p {
     font-family: Heebo;
     font-size: 20px;
-    
+
     color: #596747;
 }
 
-.chart-Interprate span{
+.chart-Interprate span {
     font-weight: bold;
     color: #ddc35e;
 }
 
-table{
+table {
     font-family: Heebo;
     border-collapse: collapse;
     width: 100%;
@@ -97,8 +99,9 @@ table{
 #harvest-farm-table th {
     border: 1px solid #ddd;
     padding: 8px;
-    
+
 }
+
 #harvest-farm-table th {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -108,11 +111,37 @@ table{
     text-align: center;
 }
 
-#harvest-farm-table td:first-child{
+#harvest-farm-table td:first-child {
     margin-top: 5vh;
 }
 
-.empty{
+.empty {
     text-align: center;
-     height: 5vh;
+    height: 5vh;
+}
+
+.addworkers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addworkers h2 {
+
+    font-family: Heebo;
+    font-size: 40px;
+    font-weight: bold;
+    color: #fcfaf4;
+
+}
+
+.addworkers a {
+    width: 15vw;
+    background-color: #596747;
+    color: #fcfaf4;
+    padding: 15px 50px;
+    border-radius: 32px;
+    border: 2px solid #fcfaf4;
+    
 }
