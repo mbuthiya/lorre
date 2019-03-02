@@ -31,11 +31,9 @@ class ThisWeekHarvest():
         for harvests in harvest:
             for dateListDate in dateListConvert:
                 if harvests.expected_harvest_date == dateListDate.date():
-                    data[dateListDate.date().strftime('%d/%b/%Y')
-                         ] = harvests.estimated_yield
+                    data[dateListDate.date()] = harvests.estimated_yield
                 else:
-                    data[dateListDate.date().strftime('%d/%b/%Y')
-                         ] = None
+                    data[dateListDate.date()] = None
         return data
 
     def generate(self):
@@ -44,7 +42,29 @@ class ThisWeekHarvest():
 
         # Add data to chart
         for key, value in chart_data.items():
-            self.chart.add(key, value)
+            day = ""
+            
+            if key.weekday() == 0:
+                day = "Monday"
+            elif key.weekday()==1:
+                day = "Tuesday"
+            elif key.weekday() == 2:
+                day = "Wednesday"
+            elif key.weekday() == 3:
+                day = "Thurday"
+            elif key.weekday() == 4:
+                day = "Friday"
+            elif key.weekday() == 5:
+                day ="Saturday"
+            else:
+                day="Sunday"
+
+    
+            
+
+
+
+            self.chart.add(day, value)
 
         # Return the rendered SVG
         return self.chart.render(is_unicode=True)
