@@ -64,7 +64,18 @@ def overview_trend(request):
 
 @login_required
 def farms_all(request):
-    pass
+    current_processor, workers = getUser(request)
+    if current_processor == None:
+        return HttpResponseServerError
+
+    if not workers:
+        data = {}
+        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
+
+    all_farms = Farm.objects.all()
+    data = {"all_farms":all_farms}
+    return render(request, "dashboard-templates/dashboard.html", {"title": "All Farms", "templateName": "dashboard-templates/farms.html", "current_processor": current_processor, "data": data})
+
 
 
 @login_required

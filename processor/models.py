@@ -59,6 +59,9 @@ class Farm(models.Model):
         number_farms_added = len(this_year)
         
         return number_farms_added
+    
+
+
 
 class Season(models.Model):
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
