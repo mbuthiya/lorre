@@ -5,8 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse,HttpResponseServerError
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
-from .models import Processor,Crop,Season,ExtensionWorker
-from .charts import ThisWeekHarvest
+from .models import Processor,Crop,Season,ExtensionWorker,Farm
+from .charts import ThisWeekHarvest,Trend
 
 
 
@@ -24,7 +24,7 @@ def overview_week(request):
         return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
 
     harvest_chart = ThisWeekHarvest(
-        height=500,
+        height=300,
         width=500,
     
     ).generate()
@@ -38,7 +38,28 @@ def overview_week(request):
 
 @login_required
 def overview_trend(request):
-    pass
+
+    current_processor, workers = getUser(request)
+    if current_processor == None:
+        return HttpResponseServerError
+
+    if not workers:
+        data = {}
+        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
+
+    trend_chart = Trend(
+        height=400,
+        width=800,
+        explicit_size=True,
+    ).generate()
+
+
+
+
+    data = {"trend_chart": trend_chart,"added":Farm.added(),"average_yield":Season.average_yield()}
+
+    return render(request, "dashboard-templates/dashboard.html", {"title": "Processor Charts", "templateName": "dashboard-templates/trend.html", "current_processor": current_processor, "data": data})
+
 
 
 @login_required

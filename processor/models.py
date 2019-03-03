@@ -51,6 +51,14 @@ class Farm(models.Model):
     def __str__(self):
         return self.farmer_name
 
+    @classmethod
+    def added(cls):
+
+        this_year = [farm for farm in cls.objects.all(
+        ) if farm.date_added.year == datetime.today().year]
+        number_farms_added = len(this_year)
+        
+        return number_farms_added
 
 class Season(models.Model):
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
@@ -74,3 +82,13 @@ class Season(models.Model):
 
         return harvestAmount,farms
     
+
+    @classmethod
+    def average_yield(cls):
+        harvest_yields = [harvest_season.estimated_yield for harvest_season in cls.objects.all(
+        ) if harvest_season.expected_harvest_date.year == datetime.today().year]
+
+        
+        average_farm_output = sum (harvest_yields) // len(Farm.objects.all())
+
+        return average_farm_output

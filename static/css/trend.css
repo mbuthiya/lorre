@@ -1,0 +1,104 @@
+/*#ddc35e 0b0d09 596747  */
+body {
+    background-color: #fcfaf4;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+
+.trending-body{
+   overflow-y: auto;
+   height: 100vh;
+   
+}
+
+.trend-header {
+    height: 10vh;
+    background-color: #0b0d09;
+    display: flex;
+    align-items: center;
+}
+
+.trend-header h2 {
+    font-size: 25px;
+    padding-left: 2vw;
+    font-family: Heebo;
+    color: #fcfaf4;
+    font-weight: bold;
+}
+
+.trend-header h2 i {
+    color: #ddc35e;
+    margin-left: 10px;
+}
+
+.trend-body {
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+
+}
+
+.trend-body .two-year-chart {
+    width: 80vw;
+    margin-top: 10vh;
+}
+
+.trend-body .two-year-chart hr,
+.farms-added hr,
+.farms-average hr {
+    width: 10vw;
+    margin: 0;
+    border: none;
+    height: 4px;
+    color: #ddc35e;
+    /* old IE */
+    background-color: #ddc35e;
+}
+
+.trend-body .two-year-chart h3,
+.farms-added h3,
+.farms-average h3 {
+    font-family: Heebo;
+    font-size: 20px;
+    font-weight: bold;
+    color: #596747;
+}
+
+.two-year-chart .trend_chart {
+    max-width: 80vw;
+}
+
+.farm-data{
+    display: flex;
+    justify-content: space-evenly;
+    margin:10vh 0;
+}
+
+.farms-added,.farms-average{
+    flex: 1;
+    padding: 50px;
+    border: 1px solid #dae0d2;
+    background-color: #dae0d2;
+    margin: 2vw;
+    
+
+}
+
+.farms-added p,
+.farms-average p{
+    font-family: Heebo;
+    font-size: 18px;
+    font-weight: bold;
+    color: #596747;
+}
+
+#farm-added-highlight,
+#farm-average-highlight {
+    font-size: 50px;
+    color: #ddc35e;
+    font-weight: bolder;
+}
+

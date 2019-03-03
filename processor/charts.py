@@ -10,6 +10,7 @@ class ThisWeekHarvest():
     def __init__(self, **kwargs):
         self.chart = pygal.Bar(**kwargs)
         self.chart.title = 'Mango Raw materials in Kgs'
+        
 
     def get_data(self):
         '''
@@ -29,7 +30,7 @@ class ThisWeekHarvest():
         
         
         for day in dateListConvert:
-           data[day.date()] = None
+           data[day.date()] = 0
 
         for harvests in harvest:
             if harvests.expected_harvest_date in data:
@@ -59,12 +60,68 @@ class ThisWeekHarvest():
             else:
                 day="Sunday"
 
-    
-            
-
-
-
             self.chart.add(day, value)
         
         # Return the rendered SVG
         return self.chart.render(is_unicode=True)
+
+class Trend():
+
+    def __init__(self, **kwargs):
+       self.line_chart = pygal.Bar(**kwargs)
+       self.line_chart.title= "Harvesting trend for the past 2 years in Kgs"
+       self.line_chart.x_labels=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+    
+    def get_data(self):
+        
+        this_year = [harvest for harvest in Season.objects.all() if harvest.expected_harvest_date.year==datetime.today().year]
+        last_year = [harvest for harvest in Season.objects.all() if harvest.expected_harvest_date.year==datetime.today().year -1]
+
+        this_year_month_sum ={}
+        last_year_month_sum = {}
+
+        this_year_linelist = []
+        last_year_linelist = []
+
+
+        for harvest in this_year:
+            this_year_month_sum.setdefault(harvest.expected_harvest_date.month,0)
+            this_year_month_sum[harvest.expected_harvest_date.month] += harvest.estimated_yield
+        
+
+        
+        for harvest in last_year:
+            last_year_month_sum.setdefault(harvest.expected_harvest_date.month,0)
+            last_year_month_sum[harvest.expected_harvest_date.month] += harvest.estimated_yield
+
+        
+        for i in range(1,13):
+
+            if i in this_year_month_sum:
+                this_year_linelist.append(this_year_month_sum[i])
+                continue
+            this_year_linelist.append(None)
+
+        for i in range(1,13):
+
+            if i in last_year_month_sum:
+                last_year_linelist.append(last_year_month_sum[i])
+                continue
+            last_year_linelist.append(None)
+       
+        return this_year_linelist,last_year_linelist
+
+    def generate(self):
+
+        
+        this_year,last_year = self.get_data()
+        
+        
+        self.line_chart.add(str(datetime.today().year),this_year)
+
+        self.line_chart.add(str(datetime.today().year -1), last_year)
+
+        return self.line_chart.render()
+
+        
