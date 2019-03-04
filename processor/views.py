@@ -170,8 +170,6 @@ def signup(request):
         newProcessor = Processor(user=newUser,company_name=username)
         newProcessor.save()
 
-        print(newProcessor.id)
-
         # Login and redirect new user
         login(request,newUser)
         return redirect("profile",newProcessor.id)

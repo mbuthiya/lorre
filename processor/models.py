@@ -17,8 +17,7 @@ class Processor(models.Model):
     primary_product = models.ForeignKey(
         Crop, on_delete=models.SET_NULL, null=True)
     unit_of_measure = models.CharField(max_length=10, null=True)
-    company_image = models.ImageField(
-        upload_to="processor_profiles", null=True)
+    company_image = models.CharField(max_length=500,null = True)
 
     def __str__(self):
         return self.company_name
@@ -29,7 +28,7 @@ class ExtensionWorker(models.Model):
     processor = models.ForeignKey(Processor,on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 40)
     last_name = models.CharField(max_length = 40)
-    profile_image = models.ImageField(upload_to="worker_images")
+    profile_image = models.CharField(max_length=500)
     phone_number = models.IntegerField()
     started_work = models.DateField()
     gender=models.CharField(max_length=8)
