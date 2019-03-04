@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/workers.css' %}">
+
+</head>
+
+<body>
+    
+
+    <section class="all-workers-body">
+        {% if data.workers%}
+
+        <div class="search-bar-section">
+
+            <form action="{%url 'workers'%}" method="GET">
+                <input type="text" placeholder="Search for extension worker by name" name="worker-search" value="{{data.search_param}}"
+                    required>
+                <input type="submit" value="Search">
+            </form>
+
+            <div class="workers-section">
+                {% for worker in data.workers %}
+                <div class="worker">
+                    <img src="{{worker.profile_image.url}}" alt="">
+                    <h4> {{worker.first_name}} {{worker.last_name}} </h4>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+        {%else%}
+        <section class="addWorkers">
+            <h2> Add some Workers</h2>
+            <a href="">Add Workers</a>
+        </section>
+
+        {%endif%}
+    </section>
+
+
+</body>
+
+</html>

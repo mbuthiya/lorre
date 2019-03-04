@@ -82,13 +82,26 @@ def farms_all(request):
 
 
 @login_required
-def farms_report(request):
-    pass
-
-
-@login_required
 def farms_workers(request):
-    pass
+    current_processor, workers = getUser(request)
+    if current_processor == None:
+        return HttpResponseServerError
+
+    if not workers:
+        data = {}
+        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
+
+    if request.GET:
+        workers = ExtensionWorker.findWorker(request.GET["worker-search"])
+        data = {"workers": workers,
+                "search_param": request.GET["worker-search"]}
+    else:
+        workers = ExtensionWorker.objects.all()
+        data = {"workers":workers}
+
+    return render(request, "dashboard-templates/dashboard.html", {"title": "All Farms", "templateName": "dashboard-templates/workers.html", "current_processor": current_processor, "data": data})
+
+
 
 
 @login_required

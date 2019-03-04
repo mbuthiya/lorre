@@ -19,7 +19,7 @@ class Processor(models.Model):
     unit_of_measure = models.CharField(max_length=10, null=True)
     company_image = models.ImageField(
         upload_to="processor_profiles", null=True)
-    
+
     def __str__(self):
         return self.company_name
 
@@ -36,6 +36,11 @@ class ExtensionWorker(models.Model):
 
     def __str__(self):
         return self.first_name
+
+    @classmethod
+    def findWorker(cls,search):
+        workers = cls.objects.filter(first_name=search)
+        return workers
 
 
 class Farm(models.Model):
