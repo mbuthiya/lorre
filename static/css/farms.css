@@ -1,0 +1,99 @@
+.all-farm-body {
+    display: flex;
+    width: 80vw;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.search-bar-section {
+
+    justify-self: center;
+}
+
+.search-bar-section input[type="text"] {
+
+    padding: 15px 5px;
+    margin-bottom: 40px;
+    border: none;
+    width: 60vw;
+    background-color: #dae0d2;
+    font-family: Heebo;
+
+}
+
+.search-bar-section input[type="submit"] {
+    width: 15vw;
+    padding: 15px 10px;
+    border-radius: 32px;
+    background-color: #596747;
+    border: none;
+    color: #fcfaf4;
+    box-shadow: 1px 5px 5px rgba(89, 103, 71, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.search-bar-section input[type="submit"]:hover {
+    box-shadow: none;
+}
+
+table {
+    font-family: Heebo;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.farms-list{
+    overflow-y: auto;
+    height: 50vh;
+}
+
+.farms-list td,
+.farms-list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+
+.farms-list th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #596747;
+    color: white;
+    text-align: center;
+}
+
+.farms-list td:first-child {
+    margin-top: 5vh;
+}
+
+.addFarms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.addFarms h2 {
+
+    font-family: Heebo;
+    font-size: 40px;
+    font-weight: bold;
+    color: #596747;
+
+}
+
+.addFarms a {
+    width: 10vw;
+    background-color: #596747;
+    color: #fcfaf4;
+    text-align: center;
+    padding: 15px 50px;
+    border-radius: 32px;
+    border: 2px solid #fcfaf4;
+    text-decoration: none;
+    font-family: Heebo;
+
+}

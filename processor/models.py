@@ -61,6 +61,13 @@ class Farm(models.Model):
         return number_farms_added
     
 
+    @classmethod
+    def search(cls,query):
+        farmIds = cls.objects.filter(farm_code=query)
+        location = cls.objects.filter(village_name=query)
+        farmer = cls.objects.filter(farmer_name=query)
+
+        return farmIds|location|farmer
 
 
 class Season(models.Model):

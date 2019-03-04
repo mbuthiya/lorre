@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/farms.css' %}">
+
+</head>
+
+<body>
+
+    {% if data.all_farms%}
+    <section class="all-farm-body">
+
+        <div class="search-bar-section">
+
+            <form action="{%url 'farms'%}" method="GET">
+                <input type="text" placeholder="Search for farm by Farm Id,Farmer or Location" name="farm-search" value="{{data.search_param}}">
+                <input type="submit" value="Search">
+            </form>
+
+        </div>
+
+        <div class="farms-list">
+            <table>
+                <tr>
+                    <th>Farm Id</th>
+                    <th>Farmer Name</th>
+                    <th>Farm Location</th>
+                    <th>Farm Manager</th>
+                </tr>
+                {% for farm in data.all_farms%}
+                <tr>
+                    <td>{{farm.farm_code}}</td>
+                    <td>{{farm.farmer_name}}</td>
+                    <td>{{farm.village_name}}</td>
+                    <td>{{farm.manager.first_name}} {{farm.manager.last_name}}</td>
+                </tr>
+                {%endfor%}
+                
+            </table>
+        </div>
+
+    </section>
+    {%else%}
+    <section class="addFarms">
+        <h2> Add some of your Farms</h2>
+        <a href="">Add Farm</a>
+    </section>
+    {%endif%}
+
+
+</body>
+
+</html>

@@ -53,9 +53,6 @@ def overview_trend(request):
         explicit_size=True,
     ).generate()
 
-
-
-
     data = {"trend_chart": trend_chart,"added":Farm.added(),"average_yield":Season.average_yield()}
 
     return render(request, "dashboard-templates/dashboard.html", {"title": "Processor Charts", "templateName": "dashboard-templates/trend.html", "current_processor": current_processor, "data": data})
@@ -72,8 +69,14 @@ def farms_all(request):
         data = {}
         return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
 
-    all_farms = Farm.objects.all()
-    data = {"all_farms":all_farms}
+    if request.GET:
+        all_farms = Farm.search(request.GET["farm-search"])
+        data = {"all_farms": all_farms,
+                "search_param": request.GET["farm-search"]}
+    else:
+        all_farms = Farm.objects.all()
+        data = {"all_farms":all_farms}
+
     return render(request, "dashboard-templates/dashboard.html", {"title": "All Farms", "templateName": "dashboard-templates/farms.html", "current_processor": current_processor, "data": data})
 
 
