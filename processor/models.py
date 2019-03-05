@@ -53,6 +53,7 @@ class Farm(models.Model):
     longitude = models.CharField(max_length=200)
     farm_code = models.CharField(max_length=200)
     farm_size_ha = models.IntegerField()
+    is_organic = models.BooleanField(default=False,null=True)
 
     def __str__(self):
         return self.farmer_name
