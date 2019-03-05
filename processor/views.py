@@ -132,8 +132,8 @@ def single_farm(request, id):
    
     # Get chart
     farm_chart = FarmTrend(
-        height=400,
-        width=800,
+        height=300,
+        width=500,
         explicit_size=True,
     ).generate(farm)
 
@@ -157,11 +157,6 @@ def single_farm(request, id):
     return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/farm.html", "current_processor": current_processor, "data": data})
     
 
-
-
-@login_required
-def single_worker(request, id):
-    pass
 
 
 @login_required

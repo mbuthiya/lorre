@@ -1,0 +1,147 @@
+/*#ddc35e 0b0d09 596747  fcfaf4*/
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.farm-body{
+    overflow-y:auto;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #fcfaf4;
+
+}
+
+.farm-menus{
+    max-width: 100%;
+    display: flex;
+    background-color: #0b0d09;
+}
+
+.farm-menus a{
+    flex: 1;
+    padding: 2vh 0;
+    text-align: center;
+    color: #fcfaf4;
+    font-family: Heebo;
+    text-decoration: none;
+    border: 1px solid #fcfaf4;
+}
+
+.section{
+    padding:40px;
+    margin-top: 5vh;
+}
+
+.section hr{
+    width: 10vw;
+    margin: 0;
+    border: none;
+    height: 4px;
+    color: #ddc35e;
+    /* old IE */
+    background-color: #ddc35e;
+}
+
+.section h3{
+    font-family: Heebo;
+    font-size: 25px;
+    font-weight: bold;
+    color: #596747;
+}
+
+
+.basic-info .details p{
+   display: inline;
+   margin: 20px;
+   font-size: 18px;
+   font-family: Heebo;
+}
+.basic-info .details .title{
+    color: #ddc35e;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.single-farm-trend .trend-details{
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-farm-trend .trend-details h4{
+    display: flex;
+    align-items: center;
+    font-family: Heebo;
+    font-size: 20px;
+}
+
+.trend-details h4 .highlight {
+    color: #ddc35e;
+    margin:0 5px;
+}
+
+.farm-details{
+    display: flex;
+    justify-content: space-between;
+}
+
+.farm-details .practices{
+    flex: 1;
+    font-family: Heebo;
+
+}
+
+.practices h4,
+.animals h4{
+     font-family: Heebo;
+    font-size: 20px;
+    color: #0b0d09;
+}
+.practices .title{
+    color: #ddc35e;
+    font-weight: bold;
+}
+
+.animals{
+    flex: 2;
+}
+
+table {
+    font-family: Heebo;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+.reportLink {
+    color: #ddc35e;
+    font-weight: bold;
+    text-decoration: underline;
+
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #596747;
+    color: white;
+    text-align: center;
+}
+
+td:first-child {
+    margin-top: 5vh;
+}
+
+#farm-report-menu-section{
+    display: none;
+    transition: all 0.4s ease-in-out;
+    padding: 40px;
+}

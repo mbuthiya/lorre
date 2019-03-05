@@ -12,7 +12,6 @@ urlpatterns = [
     path('workers/', views.farms_workers,name="workers"),
     path('requests/', views.farms_request,name="requests"),
     path('farm/<int:id>', views.single_farm,name="singleFarm"),
-    path('workers/<int:id>', views.single_worker,name="worker"),
     path('reports/<int:id>', views.single_report,name="report"),
     path('login/',views.loginFunction,name="login"),
     path('signup/',views.signup,name="signup"),

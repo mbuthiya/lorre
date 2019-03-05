@@ -13,38 +13,115 @@
     <section class="farm-body">
         <!-- Menu -->
         <div class="farm-menu">
-            <h4><a href="#">Farm Details</a></h4>
-            <h4><a href="#">Farm Reports</a></h4>
+            <div class="farm-menus">
+                <a href="#farm-details-menu-section">Farm Details</a>
+                <a href="#farm-report-menu-section">Farm Reports</a>
+            </div>
         </div>
 
-        <!-- Basic information -->
-        <div class="basic-info section">
-            <hr>
-            <h3>Basic information</h3>
+        <div id="farm-details-menu-section">
+            <!-- Basic information -->
+            <div class="basic-info section">
+                <hr>
+                <h3>Basic information</h3>
 
-            <div class="details">
-                <p> <span class="title">Farm Id:</span> {{data.farm.farm_code}}</p>
-                <p> <span class="title">Farmer:</span> {{data.farm.farmer_name}} </p>
-                <p> <span class="title">Village: </span> {{data.farm.village_name}}</p>
-                <p> <span class="title">Manager:</span>{{data.farm.manager.first_name}}</p>
-                <p> <span class="title">Farm Size in ha:</span>{{data.farm.farm_size_ha}}</p>
-                <p> <span class="title">Farm is organic:</span>{{data.farm.is_organic}}</p>
+                <div class="details">
+                    <p> <span class="title">Farm Id:</span> {{data.farm.farm_code}}</p>
+                    <p> <span class="title">Farmer:</span> {{data.farm.farmer_name}} </p>
+                    <p> <span class="title">Village: </span> {{data.farm.village_name}}</p>
+                    <p> <span class="title">Manager:</span>{{data.farm.manager.first_name}}</p>
+                    <p> <span class="title">Farm Size in ha:</span>{{data.farm.farm_size_ha}}</p>
+                    <p> <span class="title">Farm is organic:</span>{{data.farm.is_organic}}</p>
+
+                </div>
 
             </div>
 
-        </div>
+            <!-- Farm Trend -->
+            <div class="single-farm-trend section">
+                <hr>
+                <h3>Farm Trends</h3>
 
-        <!-- Farm Trend -->
-        <div class="single-farm-trend section">
-            <hr>
-            <h3>Farm Trends</h3>
+                <div class="trend-details">
+                    {{data.farm_trend | safe}}
 
-            <div class="trend-details">
-                {{data.farm_trend | safe}}
+                    <h4>This year there is a <span class="highlight"> {{data.percentage}}% {{data.status}} </span> in
+                        harvest from previous
+                        year</h4>
+
+                </div>
 
             </div>
 
+            <!-- Farm Trend -->
+            <div class="single-farm-trend section">
+                <hr>
+                <h3>Farm Details</h3>
+
+                <div class="farm-details">
+                    <div class="practices">
+                        <h4>Farm Practices</h4>
+                        <p><span class="title">Uses Flood Irrigation:</span> {{data.practice.flood_irrigation}} </p>
+                        <p><span class="title">Uses Sprinkler Irrigation:</span> {{data.practice.sprinkler_irrigation}}
+                        </p>
+                        <p><span class="title">Uses Drip Irrigation:</span> {{data.practice.drip_irrigation}} </p>
+                        <p><span class="title">Has Natural Enemies:</span> {{data.practice.natural_enemies}} </p>
+                        <p><span class="title"> Uses Animal Manure:</span> {{data.practice.animal_manure}} </p>
+                        <p><span class="title">Uses Green Manure: </span> {{data.practice.green_manure}} </p>
+                        <p><span class="title">Uses Compost Manure: </span> {{data.practice.compost_used_per_ha}} </p>
+                        <p><span class="title">Compost used per ha: </span> {{data.practice.compost_used_quantity}}%</p>
+                        <p><span class="title">Animal Manure used per ha: </span>
+                            {{data.practice.animal_manure_quantity}}%</p>
+                        <p><span class="title">Does Manual Weeding: </span> {{data.practice.manua_weeding}}</p>
+
+                    </div>
+                    <div class="animals">
+                        <h4>Farm Animals</h4>
+                        <table>
+                            <tr>
+                                <th>Animal Name</th>
+                                <th>Number of Animals</th>
+                                <th>% used as manure</th>
+
+                            </tr>
+                            {% for animal in data.animals%}
+                            <tr>
+
+                                <td>{{animal.animal_name}}</td>
+                                <td>{{animal.number_of_animals}}</td>
+                                <td>{{animal.percentage_as_manure}}</td>
+                            </tr>
+                            {%endfor%}
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
+
+        <div id="farm-report-menu-section">
+            <table>
+                <tr>
+                    <th>Report Date</th>
+                    <th>Manager</th>
+                    <th>Season Harvest Date</th>
+                    <th>Season Planting Date</th>
+                </tr>
+                {% for report in data.reports%}
+                <tr>
+                    <td> <a class="reportLink" href="{%url 'report' id=report.id %}">{{report.report_date}}</a> </td>
+                    <td>{{report.manager}}</td>
+                    <td>{{report.season.expected_harvest_date}}</td>
+                    <td>{{report.season.planting_date}}</td>
+                </tr>
+                {%endfor%}
+
+            </table>
+        </div>
+
+
 
 
 

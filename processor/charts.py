@@ -127,40 +127,40 @@ class Trend():
 
 class FarmTrend():
 
-    def __init__(self,**kwargs):
-      self.line_chart = pygal.Bar(**kwargs)
-    
+    def __init__(self, **kwargs):
+       self.line_chart = pygal.Line(**kwargs)
+       self.line_chart.title = "Harvesting trend"
+       
 
-    def get_data(self, farm):
-        years = list(range(farm.date_added.year, datetime.today().year+1))
-        
-        self.line_chart.x_labels = map(str,range(farm.date_added.year,datetime.today().year))
-        
-        farm_seasons = Season.objects.filter(farm=farm)
-        
-        season_year_yield = {}
+    def get_data(self,farm):
 
+        years = range(farm.date_added.year, datetime.today().year + 1)
+        self.line_chart.x_labels = map(str, years)
 
-        for season in farm_seasons:
-            season_year_yield.setdefault(season.expected_harvest_date.year,0)
-            season_year_yield[season.expected_harvest_date.year] += season.estimated_yield
+        all_harvests = Season.objects.filter(farm=farm)
         
+        total_year_yield = {}
+
+        for harvest in all_harvests:
+            total_year_yield.setdefault(harvest.expected_harvest_date.year,0)
+            total_year_yield[harvest.expected_harvest_date.year] += harvest.estimated_yield    
+
         data = []
 
         for year in years:
-            if year in season_year_yield:
-                data.append(season_year_yield[year])
-        
+            if year in total_year_yield:
+                data.append(total_year_yield[year])
             else:
-                data.append("None")
-        
+                data.append(None)
+
         return data
-    
-    def generate(self, farm):
+
+    def generate(self,farm):
 
         data = self.get_data(farm)
 
         self.line_chart.add("Yield",data)
+
 
         return self.line_chart.render()
       
