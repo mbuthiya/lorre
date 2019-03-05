@@ -10,6 +10,7 @@ from .charts import ThisWeekHarvest,Trend
 
 
 
+
 # Create your views here.
 @login_required
 def overview_week(request):
@@ -126,6 +127,8 @@ def single_report(request, id):
 
 def profile(request, id):
 
+  
+
     if request.method == "POST" and request.FILES['image']:
         
         country = request.POST["cCountry"]
@@ -135,6 +138,10 @@ def profile(request, id):
 
         fs = FileSystemStorage()
         filename = fs.save(company_image.name,company_image)
+
+       
+
+        print(str(filename))
         try:
             primary_product=Crop.objects.get(pk=int(product))
 
