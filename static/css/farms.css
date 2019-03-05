@@ -67,6 +67,14 @@ table {
     margin-top: 5vh;
 }
 
+.farmLink{
+    color: #ddc35e;
+    font-weight: bold;
+    text-decoration: underline;
+    
+}
+
+
 .addFarms {
     display: flex;
     flex-direction: column;

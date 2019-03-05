@@ -18,7 +18,8 @@
         <div class="search-bar-section">
 
             <form action="{%url 'farms'%}" method="GET">
-                <input type="text" placeholder="Search for farm by Farm Id,Farmer or Location" name="farm-search" value="{{data.search_param}}" required>
+                <input type="text" placeholder="Search for farm by Farm Id,Farmer or Location" name="farm-search" value="{{data.search_param}}"
+                    required>
                 <input type="submit" value="Search">
             </form>
 
@@ -34,13 +35,13 @@
                 </tr>
                 {% for farm in data.all_farms%}
                 <tr>
-                    <td>{{farm.farm_code}}</td>
+                    <td> <a class="farmLink" href="{%url 'singleFarm' id=farm.id %}">{{farm.farm_code}}</a> </td>
                     <td>{{farm.farmer_name}}</td>
                     <td>{{farm.village_name}}</td>
                     <td>{{farm.manager.first_name}} {{farm.manager.last_name}}</td>
                 </tr>
                 {%endfor%}
-                
+
             </table>
         </div>
 

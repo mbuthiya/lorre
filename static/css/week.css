@@ -95,6 +95,13 @@ table {
     width: 100%;
 }
 
+.farmLink {
+    color: #ddc35e;
+    font-weight: bold;
+    text-decoration: underline;
+
+}
+
 #harvest-farm-table td,
 #harvest-farm-table th {
     border: 1px solid #ddd;
