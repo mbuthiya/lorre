@@ -2,11 +2,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse,HttpResponseServerError
+from django.http import HttpResponse,HttpResponseServerError,Http404
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
-from .models import Processor,Crop,Season,ExtensionWorker,Farm
-from .charts import ThisWeekHarvest,Trend
+from .models import Processor, Crop, Season, ExtensionWorker, Farm, FarmReport, FarmAnimals, FarmPractices
+from .charts import ThisWeekHarvest,Trend,FarmTrend
 
 
 
@@ -45,8 +45,7 @@ def overview_trend(request):
         return HttpResponseServerError
 
     if not workers:
-        data = {}
-        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
+        return redirect("week")
 
     trend_chart = Trend(
         height=400,
@@ -67,8 +66,7 @@ def farms_all(request):
         return HttpResponseServerError
 
     if not workers:
-        data = {}
-        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
+       return redirect("week")
 
     if request.GET:
         all_farms = Farm.search(request.GET["farm-search"])
@@ -86,12 +84,10 @@ def farms_all(request):
 def farms_workers(request):
     current_processor, workers = getUser(request)
     if current_processor == None:
-        return HttpResponseServerError
+        return HttpResponseServerError()
 
     if not workers:
-        data = {}
-        return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
-
+       return redirect("week")
     if request.GET:
         workers = ExtensionWorker.findWorker(request.GET["worker-search"])
         data = {"workers": workers,
@@ -112,7 +108,55 @@ def farms_request(request):
 
 @login_required
 def single_farm(request, id):
-    pass
+
+    current_processor, workers = getUser(request)
+    if current_processor == None:
+        return HttpResponseServerError()
+
+    if not workers:
+       return redirect("week")
+    
+    # Check if farm exists
+    farm = ""
+    try:
+        farm = Farm.objects.get(pk=id)
+
+    except ObjectDoesNotExist:
+        print("Single Farm function: Object could not be found")
+        return Http404()
+    
+    # Get farm information
+    # Sum of yeild from this and previous season
+    status,percentage = Season.get_farm_yield(farm)
+    
+   
+    # Get chart
+    farm_chart = FarmTrend(
+        height=400,
+        width=800,
+        explicit_size=True,
+    ).generate(farm)
+
+    try:
+        practices = FarmPractices.objects.get(farm_id=farm)
+    except ObjectDoesNotExist:
+        print("Single Farm function: Object could not be found")
+        return Http404()
+
+
+
+    
+    # Get all farm Animals
+    animals = FarmAnimals.objects.filter(farm_id =farm)
+
+    # Get all reports
+    reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
+    
+    data={"status":status,"percentage":percentage,"farm_trend":farm_chart,"animals":animals,"farm":farm,"reports":reports,"practice":practices}
+    
+    return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/farm.html", "current_processor": current_processor, "data": data})
+    
+
 
 
 @login_required

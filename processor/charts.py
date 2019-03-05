@@ -124,4 +124,44 @@ class Trend():
 
         return self.line_chart.render()
 
+
+class FarmTrend():
+
+    def __init__(self,**kwargs):
+      self.line_chart = pygal.Bar(**kwargs)
+    
+
+    def get_data(self, farm):
+        years = list(range(farm.date_added.year, datetime.today().year+1))
         
+        self.line_chart.x_labels = map(str,range(farm.date_added.year,datetime.today().year))
+        
+        farm_seasons = Season.objects.filter(farm=farm)
+        
+        season_year_yield = {}
+
+
+        for season in farm_seasons:
+            season_year_yield.setdefault(season.expected_harvest_date.year,0)
+            season_year_yield[season.expected_harvest_date.year] += season.estimated_yield
+        
+        data = []
+
+        for year in years:
+            if year in season_year_yield:
+                data.append(season_year_yield[year])
+        
+            else:
+                data.append("None")
+        
+        return data
+    
+    def generate(self, farm):
+
+        data = self.get_data(farm)
+
+        self.line_chart.add("Yield",data)
+
+        return self.line_chart.render()
+      
+

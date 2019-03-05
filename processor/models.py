@@ -48,7 +48,7 @@ class Farm(models.Model):
         ExtensionWorker, on_delete=models.SET_NULL, null=True)
     farmer_name = models.CharField(max_length=50)
     village_name = models.CharField(max_length=50)
-    date_added = models.DateField(auto_now=True)
+    date_added = models.DateField()
     latitude = models.CharField(max_length=200)
     longitude = models.CharField(max_length=200)
     farm_code = models.CharField(max_length=200)
@@ -107,6 +107,23 @@ class Season(models.Model):
         average_farm_output = sum(harvest_yields) // len(Farm.objects.all())
 
         return average_farm_output
+    
+
+    @classmethod
+    def get_farm_yield(cls,farm):
+        seasons = cls.objects.filter(farm=farm)
+
+        this_year_yield = sum([yields.estimated_yield for yields in seasons if yields.expected_harvest_date.year==datetime.today().year])
+        last_year_yield = sum([yields.estimated_yield for yields in seasons if yields.expected_harvest_date.year==datetime.today().year-1])
+
+        if this_year_yield >= last_year_yield:
+            status = "Increase"
+        else:
+            status = "Decrease"
+        
+        percentage = (max(this_year_yield,last_year_yield) - min(this_year_yield,last_year_yield)) // max(this_year_yield,last_year_yield) *100
+
+        return status,percentage
 
 
 class FarmPractices(models.Model):
