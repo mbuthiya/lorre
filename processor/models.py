@@ -166,9 +166,10 @@ class FarmReport(models.Model):
 
 
 class FarmCrop(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.SET_NULL, null=True)
+    report = models.ForeignKey(FarmReport, on_delete=models.SET_NULL, null=True)
     crop = models.ForeignKey(Crop, on_delete=models.CASCADE, null=True)
     inter_crop = models.CharField(max_length=100)
+    size = models.IntegerField(null=True)
 
     def __str__(self):
         return "Farm Crop"
@@ -186,8 +187,8 @@ class CropManagement(models.Model):
 
 
 class CropInputs(models.Model):
-    farm_crop = models.ForeignKey(
-        FarmCrop, on_delete=models.SET_NULL, null=True)
+    report = models.ForeignKey(
+        FarmReport, on_delete=models.SET_NULL, null=True)
     product = models.CharField(max_length=100)
     product_quantity = models.IntegerField()
     product_quantity_si = models.CharField(max_length=10)

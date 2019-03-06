@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse,HttpResponseServerError,Http404
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
-from .models import Processor, Crop, Season, ExtensionWorker, Farm, FarmReport, FarmAnimals, FarmPractices
+from .models import Processor, Crop, Season, ExtensionWorker, Farm, FarmReport, FarmAnimals, FarmPractices,FarmCrop,CropInputs,CropManagement
 from .charts import ThisWeekHarvest,Trend,FarmTrend
 
 
@@ -161,7 +161,31 @@ def single_farm(request, id):
 
 @login_required
 def single_report(request, id):
-    pass
+
+    current_processor, workers = getUser(request)
+    if current_processor == None:
+        return HttpResponseServerError()
+
+    if not workers:
+       return redirect("week")
+    
+    # Check if the report exists
+    try:
+        report = FarmReport.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        return Http404()
+    
+    crops = FarmCrop.objects.filter(report = report)
+
+    cropInputs = CropInputs.objects.filter(report=report)
+
+    cropManagement = CropManagement.objects.filter(report=report)
+    
+    data = {"report":report,"crops":crops,"cropInputs":cropInputs,"cropManagement":cropManagement}
+
+    return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/report.html", "current_processor": current_processor, "data": data})
+
+
 
 
 def profile(request, id):
