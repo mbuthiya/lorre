@@ -102,8 +102,34 @@ def farms_workers(request):
 
 
 @login_required
-def farms_request(request):
-    pass
+def new_worker(request):
+
+    current_processor, workers = getUser(request)
+
+    if current_processor == None:
+        return HttpResponseServerError()
+
+    if request.method == "POST" and request.FILES['image']:
+
+        first_name = request.POST["firstname"]
+        last_name = request.POST["lastname"]
+        gender = request.POST["gender"]
+        profile_image = request.FILES["image"]
+        phone_number = request.POST["number"]
+
+        fs = FileSystemStorage()
+        filename = fs.save(profile_image.name, profile_image)
+
+        try:
+            ext = ExtensionWorker.objects.create(processor=current_processor, first_name=first_name,last_name=last_name,gender=gender,profile_image=filename,phone_number=phone_number)
+            ext.save()
+            return redirect("workers")
+        except:
+            print("Error")
+    
+    data={}
+    return render(request, "dashboard-templates/dashboard.html", {"title": "New Worker", "templateName": "dashboard-templates/newWorker.html", "current_processor": current_processor, "data": data})
+    
 
 
 @login_required
@@ -186,11 +212,8 @@ def single_report(request, id):
     return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/report.html", "current_processor": current_processor, "data": data})
 
 
-
-
+@login_required
 def profile(request, id):
-
-  
 
     if request.method == "POST" and request.FILES['image']:
         
@@ -202,9 +225,6 @@ def profile(request, id):
         fs = FileSystemStorage()
         filename = fs.save(company_image.name,company_image)
 
-       
-
-        print(str(filename))
         try:
             primary_product=Crop.objects.get(pk=int(product))
 

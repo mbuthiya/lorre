@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lorre Set up profile {{processor.company_name}}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/newWorker.css' %}">
+</head>
+
+<body>
+
+    <div class="new-worker-body">
+        <h2>Create New Worker</h2>
+
+        <form action="{% url 'newWorker'%}" enctype="multipart/form-data" method="POST">
+            {% csrf_token%}
+            <div class="form-image">
+                <label for="image" class="image-upload">
+                    <input type="file" name="image" id="image" required>
+                    Upload Employee image
+                </label>
+
+                <div class="image-uploaded">
+                    <img src="" alt="" class="imageuploaded">
+                </div>
+
+            </div>
+            <div class="form-details">
+                <input type="text" name="firstname" placeholder="Employee Firstname">
+                <input type="text" name="lastname" placeholder="Employee Lastname">
+                <input type="number" name="number" placeholder="Employee Phone number">
+                <select name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <input type="submit" value="Add new Employee">
+            </div>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/profile.js"></script>
+</body>
+
+</html>

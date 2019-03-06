@@ -11,10 +11,10 @@
 </head>
 
 <body>
-    
+
 
     <section class="all-workers-body">
-        {% if data.workers%}
+
 
         <div class="search-bar-section">
 
@@ -23,7 +23,7 @@
                     required>
                 <input type="submit" value="Search">
             </form>
-
+            {% if data.workers%}
             <div class="workers-section">
                 {% for worker in data.workers %}
                 <div class="worker">
@@ -34,9 +34,9 @@
             </div>
         </div>
         {%else%}
-        <section class="addWorkers">
-            <h2> Add some Workers</h2>
-            <a href="">Add Workers</a>
+        <section class="new-worker">
+            <h2> No workers found</h2>
+            <a href="{% url 'newWorker'%}">Add New Worker</a>
         </section>
 
         {%endif%}

@@ -28,9 +28,9 @@ class ExtensionWorker(models.Model):
     processor = models.ForeignKey(Processor, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
-    profile_image = models.ImageField(upload_to="processors", null=True)
+    profile_image = models.ImageField(upload_to="workers", null=True)
     phone_number = models.IntegerField()
-    started_work = models.DateField()
+    started_work = models.DateField(auto_now=True)
     gender = models.CharField(max_length=8)
 
     def __str__(self):

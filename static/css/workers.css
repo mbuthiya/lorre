@@ -41,18 +41,49 @@ body{
 
 .workers-section{
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap;
+}
+
+
+.new-worker{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.new-worker h2 {
+    
+    font-family: Heebo;
+    font-size: 40px;
+    font-weight: bold;
+    color: #596747;
+
+}
+
+.new-worker a {
+    width: 10vw;
+    background-color: #596747;
+    color: #fcfaf4;
+    text-align: center;
+    padding: 15px 50px;
+    border-radius: 32px;
+    border: 2px solid #fcfaf4;
+    text-decoration: none;
+    font-family: Heebo;
+
 }
 
 .worker{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 200px;
     padding: 20px 10px;
     background-color: rgba(218, 224, 210,0.3);
     box-shadow: 1px 5px 5px rgb(218, 224, 210);
     margin-top: 5vh;
+    margin-left: 40px;
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
 
@@ -65,8 +96,8 @@ body{
 
 .worker img{
     border-radius: 10px;
-    width: 280px;
-    height: 300px;
+    width: 180px;
+    height: 200px;
 }
 
 .worker h4{
@@ -75,5 +106,4 @@ body{
     color:#0b0d09;
     cursor: pointer;
 }
-
 
