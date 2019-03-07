@@ -125,8 +125,8 @@ def new_worker(request):
         newuser.save()
 
         # Creating a new extension worker
-        ext = ExtensionWorker.objects.create(processor=current_processor, first_name=first_name,last_name=last_name,gender=gender,profile_image=filename,phone_number=phone_number)
-        ext.save()
+        ExtensionWorker.objects.create(processor=current_processor, first_name=first_name,last_name=last_name,gender=gender,profile_image=filename,phone_number=phone_number)
+        
 
         return redirect("workers")
     # End of post
