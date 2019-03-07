@@ -120,13 +120,16 @@ def new_worker(request):
         fs = FileSystemStorage()
         filename = fs.save(profile_image.name, profile_image)
 
-        try:
-            ext = ExtensionWorker.objects.create(processor=current_processor, first_name=first_name,last_name=last_name,gender=gender,profile_image=filename,phone_number=phone_number)
-            ext.save()
-            return redirect("workers")
-        except:
-            print("Error")
-    
+        # Creating a new user instance
+        newuser = User.objects.create_user(username=phone_number,password="12345678")
+        newuser.save()
+
+        # Creating a new extension worker
+        ext = ExtensionWorker.objects.create(processor=current_processor, first_name=first_name,last_name=last_name,gender=gender,profile_image=filename,phone_number=phone_number)
+        ext.save()
+
+        return redirect("workers")
+    # End of post
     data={}
     return render(request, "dashboard-templates/dashboard.html", {"title": "New Worker", "templateName": "dashboard-templates/newWorker.html", "current_processor": current_processor, "data": data})
     
