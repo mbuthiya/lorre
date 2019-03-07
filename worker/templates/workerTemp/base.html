@@ -10,32 +10,36 @@
     <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
 
-    <link rel="stylesheet" href="{%static 'css/worker/login.css'%}">
-    <title>Login</title>
+    <link rel="stylesheet" href="{%static 'css/worker/base.css'%}">
+    <title>{{data.title}}</title>
 </head>
 
 <body>
     <div class="body">
 
-        <div class="worker-header">
-            <h2>Lorre</h2>
-            <h3>Farm Manager App</h3>
+        <!-- sidenav -->
+        <div class="sideNav">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" id="close">&times;</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Clients</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <!-- Use any element to open the sidenav -->
+            <span id="open">open</span>
         </div>
-        <form action="{%url 'worker-login'%}" method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="phoneNumber">Phone Number</label>
-                <input type="number" name="number" id="phoneNumber" placeholder="0783456283">
-            </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
-            </div>
+        <!-- content -->
+        <div class="worker-content">
 
-            <input type="submit" value="Sign In">
-        </form>
+        </div>
     </div>
+
+    <!-- javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/worker/base.js"></script>
 </body>
 
 </html>

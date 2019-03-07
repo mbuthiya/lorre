@@ -6,6 +6,6 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-   path("",views.login,name="worker-login"),
-   path("/farms",views.farms,name="worker-farms")
+    path("", views.loginWorker, name="worker-login"),
+   path("farms/",views.farms,name="worker-farms")
 ]
