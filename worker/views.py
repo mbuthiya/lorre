@@ -43,6 +43,7 @@ def farms(request):
     # Get all the farms
     farms = Farm.objects.filter(manager=manager)
     
+    
     data ={"title":"My Farms","farms":farms,"manager":manager}
 
     return render(request,"workerTemp/base.html",{"data":data})
