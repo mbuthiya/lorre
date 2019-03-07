@@ -7,4 +7,5 @@ from . import views
 
 urlpatterns = [
    path("",views.login,name="worker-login"),
+   path("/farms",views.farms,name="worker-farms")
 ]

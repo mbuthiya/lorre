@@ -29,7 +29,7 @@ class ExtensionWorker(models.Model):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     profile_image = models.ImageField(upload_to="workers", null=True)
-    phone_number = models.IntegerField()
+    phone_number = models.IntegerField(unique=True)
     started_work = models.DateField(auto_now=True)
     gender = models.CharField(max_length=8)
 
