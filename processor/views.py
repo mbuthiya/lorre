@@ -253,7 +253,7 @@ def signup(request):
         password = request.POST["password"]
 
         # Add user to the database
-        newUser = User.objects.create_user(username=username,email=email,password=password)
+        newUser = User.objects.create_user(username=email,email=email,password=password)
         newUser.save()
 
         # Create a new Processor 
@@ -276,13 +276,8 @@ def loginFunction(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        # Authenticate if user exists
-        try:
-            userEmail = User.objects.get(email=email)
-        except ObjectDoesNotExist:
-            return redirect("signup")
 
-        user = authenticate(request,username=userEmail.username,password=password)
+        user = authenticate(request,username=email,password=password)
 
         if user is not None:
             # Login user and redirect them to week page

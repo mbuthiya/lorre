@@ -2,4 +2,5 @@ virtual/
 secret.sh
 *.pyc
 media/
+__pycache__
 secret.json
