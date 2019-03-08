@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lorre Set up profile {{processor.company_name}}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/newFarm.css' %}">
+</head>
+
+<body>
+
+    <div class="new-worker-body">
+        <h2>Create New Worker</h2>
+
+        <form action="{% url 'newWorker'%}" enctype="multipart/form-data" method="POST">
+            {% csrf_token%}
+
+            <input type="text" name="farmer" placeholder="Name of the Farmer" required>
+            <select name="manager">
+                {% for manager in data.managers%}
+                <option value="{{manager}}">manager.first_name</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="village" placeholder="Name of Farm Village" required>
+            <input type="text" name="longitude" placeholder="Longitude of the farm">
+            <input type="text" name="latitude" placeholder="Latiude of the Farm">
+            <input type="text" name="code" required placeholder="Enter the Unique Farm Code">
+            
+            <input type="submit" value="Add new Farm">
+
+        </form>
+    </div>
+
+</body>
+
+</html>
