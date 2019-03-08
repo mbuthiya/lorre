@@ -209,7 +209,7 @@ class CropInputs(models.Model):
 
 class Requests(models.Model):
     farm = models.ForeignKey(Farm,on_delete=models.CASCADE)
-    season = models.ForeignKey(Season,on_delete=models.SET_NULL)
+    season = models.ForeignKey(Season,on_delete=models.SET_NULL,null=True)
     name = models.CharField(max_length=200)
     cost = models.IntegerField()
     reason = models.TextField()
