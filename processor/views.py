@@ -82,7 +82,34 @@ def farms_all(request):
 
 @login_required
 def new_farms(request):
-    pass
+
+    current_processor, workers = getUser(request)
+    if current_processor == None:
+        return HttpResponseServerError()
+
+    if not workers:
+       return redirect("week")
+
+    # Add form input
+    if request.method == "POST":
+        farmer = request.POST.get("farmer")
+        manager = request.POST.get("manager")
+        village = request.POST.get("village")
+        longitude = request.POST.get("longitude")
+        latitude = request.POST.get("latitude")
+        farm_code = request.POST.get("code")
+        farm_size = request.POST.get("farm_size")
+
+        new_farm = Farm.objects.create(processor=current_processor,farmer=farmer,manager=manager,village=village,longitude=longitude,latitude=latitude,farm_code=farm_code,farm_size = int(farm_size))
+
+        new_farm.save()
+        return redirect("farms")
+
+    managers = ExtensionWorker.objects.filter(processor=current_processor)
+
+    data={"managers":managers}
+    
+    return render(request, "dashboard-templates/dashboard.html", {"title": "All Farms", "templateName": "dashboard-templates/newFarm.html", "current_processor": current_processor, "data": data})
 
 
 @login_required
