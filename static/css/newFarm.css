@@ -28,11 +28,11 @@ body {
 }
 
 input[type="text"]{
-    align-self: center;
     padding: 15px 5px;
     margin-bottom: 40px;
     border: none;
     width: 25vw;
+    display: block;
     background-color: #dae0d2;
     font-family: Heebo;
 }

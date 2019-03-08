@@ -51,10 +51,9 @@ class Farm(models.Model):
     longitude = models.CharField(max_length=200)
     farm_code = models.CharField(max_length=200)
     farm_size_ha = models.IntegerField()
-    total_investment = models.IntegerField(null=True)
-    total_produce_harvested = models.IntegerField(null=True)
-    average_investment_per_season = models.IntegerField(null=True)
-    average_price_per_season = models.IntegerField(null=True)
+    total_investment = models.IntegerField(null=True,default=0)
+    total_produce_harvested = models.IntegerField(null=True,default=0)
+   
 
     def __str__(self):
         return self.farmer_name
@@ -89,6 +88,17 @@ class Season(models.Model):
 
     def __str__(self):
         return str(self.planting_date)
+
+
+    @classmethod
+    def total_investment(cls):
+
+        seasons= cls.objects.filter(planting_date=datetime.today().year)
+        investment = 0
+        if len(seasons) >0:
+            investment = sum(season.farm.total_investment for season in seasons)
+        
+        return investment
 
     @classmethod
     def this_weeks_harvest(cls):
@@ -215,3 +225,18 @@ class Requests(models.Model):
     cost = models.IntegerField()
     reason = models.TextField()
     fulfilled = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add=True)
+
+    def __init__(self):
+        print(self.farm)
+
+    @classmethod
+    def get_request_total(cls):
+        all_requests_year = cls.objects.filter(date=datetime.today().year)
+
+        cost_of_requests = 0
+        if len(all_requests_year) > 0:
+            cost_of_requests = sum([requests.cost for requests in all_requests_year ])
+
+        return cost_of_requests
+    
