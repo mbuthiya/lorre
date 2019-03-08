@@ -104,3 +104,15 @@ table {
     font-family: Heebo;
 
 }
+.add-new-farm{
+     width: 10vw;
+     background-color: #596747;
+     color: #fcfaf4;
+     text-align: center;
+     padding: 15px 50px;
+     border-radius: 32px;
+     border: 2px solid #fcfaf4;
+     text-decoration: none;
+     font-family: Heebo;
+     margin: 20px;
+}

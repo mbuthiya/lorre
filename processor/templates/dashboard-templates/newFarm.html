@@ -15,16 +15,16 @@
 
 <body>
 
-    <div class="new-worker-body">
-        <h2>Create New Worker</h2>
+    <div class="new-farm-body">
+        <h2>Create New Farm</h2>
 
-        <form action="{% url 'newWorker'%}" enctype="multipart/form-data" method="POST">
+        <form action="{% url 'newFarms'%}" enctype="multipart/form-data" method="POST">
             {% csrf_token%}
 
             <input type="text" name="farmer" placeholder="Name of the Farmer" required>
             <select name="manager">
                 {% for manager in data.managers%}
-                <option value="{{manager}}">manager.first_name</option>
+                <option value="{{manager.id}}">{{manager.first_name}}</option>
                 {% endfor %}
             </select>
             <input type="text" name="village" placeholder="Name of Farm Village" required>
@@ -32,6 +32,7 @@
             <input type="text" name="latitude" placeholder="Latiude of the Farm" required>
             <input type="text" name="farm_size" placeholder="Size of the Farm in ha" required>
             <input type="text" name="code" required placeholder="Enter the Unique Farm Code" required>
+            <input type="date" name="date" required placeholder="Date Added">
 
             <input type="submit" value="Add new Farm">
 

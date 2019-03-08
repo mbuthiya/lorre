@@ -99,8 +99,13 @@ def new_farms(request):
         latitude = request.POST.get("latitude")
         farm_code = request.POST.get("code")
         farm_size = request.POST.get("farm_size")
+        date = request.POST.get("date")
 
-        new_farm = Farm.objects.create(processor=current_processor,farmer=farmer,manager=manager,village=village,longitude=longitude,latitude=latitude,farm_code=farm_code,farm_size = int(farm_size))
+        manager = ExtensionWorker.objects.get(pk=int(manager))
+
+        new_farm = Farm.objects.create(processor=current_processor, farmer_name=farmer, manager=manager,
+                                       village_name=village, longitude=longitude, latitude=latitude, farm_code=farm_code, farm_size_ha=int(farm_size),
+                                       date_added=date)
 
         new_farm.save()
         return redirect("farms")
@@ -108,7 +113,6 @@ def new_farms(request):
     managers = ExtensionWorker.objects.filter(processor=current_processor)
 
     data={"managers":managers}
-    
     return render(request, "dashboard-templates/dashboard.html", {"title": "All Farms", "templateName": "dashboard-templates/newFarm.html", "current_processor": current_processor, "data": data})
 
 

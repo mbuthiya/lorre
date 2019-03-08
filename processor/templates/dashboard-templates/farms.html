@@ -25,6 +25,7 @@
 
         </div>
 
+        <a class="add-new-farm" href="{%url 'newFarms'%}">Add Farm</a>
         <div class="farms-list">
             <table>
                 <tr>
@@ -49,7 +50,7 @@
     {%else%}
     <section class="addFarms">
         <h2> Add some of your Farms</h2>
-        <a href="">Add Farm</a>
+        <a href="{%url 'newFarms'%}">Add Farm</a>
     </section>
     {%endif%}
 
