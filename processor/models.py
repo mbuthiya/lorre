@@ -121,7 +121,12 @@ class Season(models.Model):
         else:
             status = "Decrease"
         
-        percentage = (max(this_year_yield,last_year_yield) - min(this_year_yield,last_year_yield)) // max(this_year_yield,last_year_yield) *100
+        try:
+            percentage = (max(this_year_yield, last_year_yield) - min(
+                       this_year_yield, last_year_yield)) // max(this_year_yield, last_year_yield) * 100
+
+        except ZeroDivisionError:
+            percentage=0
 
         return status,percentage
 

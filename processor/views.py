@@ -188,7 +188,7 @@ def single_farm(request, id):
 
     except ObjectDoesNotExist:
         print("Single Farm function: Object could not be found")
-        return Http404()
+        raise Http404()
     
     # Get farm information
     # Sum of yeild from this and previous season
@@ -206,8 +206,7 @@ def single_farm(request, id):
         practices = FarmPractices.objects.get(farm_id=farm)
     except ObjectDoesNotExist:
         print("Single Farm function: Object could not be found")
-        return Http404()
-
+        practices=None
 
 
     
