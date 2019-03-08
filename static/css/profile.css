@@ -51,15 +51,6 @@ form{
      font-family: Heebo;
 }
 
-select{
-    padding: 15px 5px;
-    margin-bottom: 40px;
-    border: none;
-    width: 25vw;
-    background-color: #dae0d2;
-    font-family: Heebo;
-    
-}
 
 .form-details input[type="submit"]{
     justify-self: center;
@@ -69,7 +60,8 @@ select{
     background-color: #596747;
     color: #fcfaf4;
     cursor: pointer;
-    transition: all 0.3s ease-in;
+    border: none !important;
+
 }
 
 input[type="file"] {

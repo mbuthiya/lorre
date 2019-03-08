@@ -99,13 +99,11 @@ def new_farms(request):
         latitude = request.POST.get("latitude")
         farm_code = request.POST.get("code")
         farm_size = request.POST.get("farm_size")
-        date = request.POST.get("date")
 
         manager = ExtensionWorker.objects.get(pk=int(manager))
 
         new_farm = Farm.objects.create(processor=current_processor, farmer_name=farmer, manager=manager,
-                                       village_name=village, longitude=longitude, latitude=latitude, farm_code=farm_code, farm_size_ha=int(farm_size),
-                                       date_added=date)
+                                       village_name=village, longitude=longitude, latitude=latitude, farm_code=farm_code, farm_size_ha=int(farm_size))
 
         new_farm.save()
         return redirect("farms")

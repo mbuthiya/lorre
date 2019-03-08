@@ -18,25 +18,26 @@
     <div class="new-farm-body">
         <h2>Create New Farm</h2>
 
-        <form action="{% url 'newFarms'%}" enctype="multipart/form-data" method="POST">
-            {% csrf_token%}
+        <div class="form">
 
-            <input type="text" name="farmer" placeholder="Name of the Farmer" required>
-            <select name="manager">
-                {% for manager in data.managers%}
-                <option value="{{manager.id}}">{{manager.first_name}}</option>
-                {% endfor %}
-            </select>
-            <input type="text" name="village" placeholder="Name of Farm Village" required>
-            <input type="text" name="longitude" placeholder="Longitude of the farm" required>
-            <input type="text" name="latitude" placeholder="Latiude of the Farm" required>
-            <input type="text" name="farm_size" placeholder="Size of the Farm in ha" required>
-            <input type="text" name="code" required placeholder="Enter the Unique Farm Code" required>
-            <input type="date" name="date" required placeholder="Date Added">
+            <form action="{% url 'newFarms'%}" enctype="multipart/form-data" method="POST">
+                {% csrf_token%}
 
-            <input type="submit" value="Add new Farm">
+                <input type="text" name="farmer" placeholder="Name of the Farmer" required>
+                <select name="manager">
+                    {% for manager in data.managers%}
+                    <option value="{{manager.id}}">{{manager.first_name}}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="village" placeholder="Name of Farm Village" required>
+                <input type="text" name="longitude" placeholder="Longitude of the farm" required>
+                <input type="text" name="latitude" placeholder="Latiude of the Farm" required>
+                <input type="text" name="farm_size" placeholder="Size of the Farm in ha" required>
+                <input type="text" name="code" required placeholder="Enter the Unique Farm Code" required>
+                <input type="submit" value="Add new Farm">
 
-        </form>
+            </form>
+        </div>
     </div>
 
 </body>

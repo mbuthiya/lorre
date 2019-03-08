@@ -46,7 +46,7 @@ class Farm(models.Model):
         ExtensionWorker, on_delete=models.SET_NULL, null=True)
     farmer_name = models.CharField(max_length=50)
     village_name = models.CharField(max_length=50)
-    date_added = models.DateField()
+    date_added = models.DateField(auto_now_add=True)
     latitude = models.CharField(max_length=200)
     longitude = models.CharField(max_length=200)
     farm_code = models.CharField(max_length=200)
@@ -79,6 +79,7 @@ class Farm(models.Model):
 
 class Season(models.Model):
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
+    crop = models.ForeignKey(Crop,on_delete=models.SET_NULL,null=True)
     planting_date = models.DateField()
     expected_harvest_date = models.DateField()
     estimated_yield = models.IntegerField()

@@ -9,7 +9,7 @@ class ThisWeekHarvest():
 
     def __init__(self, **kwargs):
         self.chart = pygal.Bar(**kwargs)
-        self.chart.title = 'Mango Raw materials in Kgs'
+        self.chart.title = 'Raw materials in Kgs'
         
 
     def get_data(self):

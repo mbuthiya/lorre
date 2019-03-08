@@ -22,12 +22,12 @@ body {
     color: #596747;
 }
 
-form{
+.form{
     display: flex;
     flex-direction: column;
 }
 
-input{
+input[type="text"]{
     align-self: center;
     padding: 15px 5px;
     margin-bottom: 40px;
