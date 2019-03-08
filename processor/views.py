@@ -81,6 +81,11 @@ def farms_all(request):
 
 
 @login_required
+def new_farms(request):
+    pass
+
+
+@login_required
 def farms_workers(request):
     current_processor, workers = getUser(request)
     if current_processor == None:
