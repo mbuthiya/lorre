@@ -7,5 +7,6 @@ from . import views
 
 urlpatterns = [
     path("", views.loginWorker, name="worker-login"),
-   path("farms/",views.farms,name="worker-farms")
+   path("farms/",views.farms,name="worker-farms"),
+   path("farms/<int:id>",views.farm,name="worker-farm")
 ]

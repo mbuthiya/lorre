@@ -46,6 +46,16 @@ select{
     background-color: #dae0d2;
     font-family: Heebo;
 }
+
+input[type=submit]{
+     width: 15vw;
+     padding: 15px 10px;
+     border-radius: 32px;
+     background-color: #596747;
+     color: #fcfaf4;
+     box-shadow: 1px 5px 5px rgba(89, 103, 71, 0.6);
+     cursor: pointer;
+}
 input[type=date]{
      padding: 15px 5px;
 }

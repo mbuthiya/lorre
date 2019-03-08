@@ -13,14 +13,14 @@
 
     {% for farm in data.farms%}
     <div class="single-farm">
-        <h3>{{farm.farm_code}}</h3>
+        <h3><a href="{%url 'worker-farm' farm.id%}">{{farm.farm_code}}</a></h3>
         <div>
             <h4> <span class="highlight">Farmer:</span> {{farm.farmer_name}} Muriuki</h4>
             <h4> <span class="highlight"> Village: {{farm.village_name}} </span> Kisumu </h4>
         </div>
     </div>
     {% endfor %}
-    
+
 </body>
 
 </html>

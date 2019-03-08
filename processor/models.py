@@ -6,6 +6,7 @@ from datetime import datetime
 
 class Crop(models.Model):
     name = models.CharField(max_length=20)
+    unit_of_measure = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name
@@ -15,9 +16,6 @@ class Processor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100)
     country = models.CharField(max_length=50, null=True)
-    primary_product = models.ForeignKey(
-        Crop, on_delete=models.SET_NULL, null=True)
-    unit_of_measure = models.CharField(max_length=10, null=True)
     company_image = models.ImageField(upload_to="processors", null=True)
 
     def __str__(self):
@@ -53,7 +51,10 @@ class Farm(models.Model):
     longitude = models.CharField(max_length=200)
     farm_code = models.CharField(max_length=200)
     farm_size_ha = models.IntegerField()
-    is_organic = models.BooleanField(default=False,null=True)
+    total_investment = models.IntegerField(null=True)
+    total_produce_harvested = models.IntegerField(null=True)
+    average_investment_per_season = models.IntegerField(null=True)
+    average_price_per_season = models.IntegerField(null=True)
 
     def __str__(self):
         return self.farmer_name
@@ -82,6 +83,8 @@ class Season(models.Model):
     expected_harvest_date = models.DateField()
     estimated_yield = models.IntegerField()
     season_active = models.BooleanField(default=False)
+    price_per_unit = models.IntegerField()
+    investment = models.IntegerField()
 
     def __str__(self):
         return str(self.planting_date)
@@ -203,3 +206,10 @@ class CropInputs(models.Model):
         return self.product
 
 
+
+class Requests(model.models):
+    farm = models.ForeignKey(Farm,on_delete=models.CASCADE)
+    season = models.ForeignKey(Season,on_delete=models.SET_NULL)
+    name = models.CharField(max_length=200)
+    cost = models.IntegerField()
+    reason = models.TextField()

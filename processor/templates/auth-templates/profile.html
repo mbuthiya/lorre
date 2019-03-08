@@ -35,13 +35,6 @@
         </div>
         <div class="form-details">
             <input type="text" name="cCountry" placeholder="Country of Operations">
-            <input type="text" name="measure" placeholder="Company Unit of measure: ie Kg, Liter">
-            <select name="product">
-                {% for product in products%}
-                <option value="{{product.id}}">{{product.name}}</option>
-                {% endfor %}
-            </select>
-
             <input type="submit" value="Save Profile">
         </div>
     </form>

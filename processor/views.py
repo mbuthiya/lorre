@@ -256,18 +256,14 @@ def profile(request, id):
     if request.method == "POST" and request.FILES['image']:
         
         country = request.POST["cCountry"]
-        unit_of_measure = request.POST["measure"]
         company_image = request.FILES["image"]
-        product = request.POST["product"]
+        
 
         fs = FileSystemStorage()
         filename = fs.save(company_image.name,company_image)
 
         try:
-            primary_product=Crop.objects.get(pk=int(product))
-
-            Processor.objects.filter(id=id).update(country=country,
-                        unit_of_measure=unit_of_measure, company_image=filename,primary_product=primary_product)
+            Processor.objects.filter(id=id).update(country=country, company_image=filename,)
             return redirect("week")
         except:
             print("Error")
@@ -277,9 +273,21 @@ def profile(request, id):
     except ObjectDoesNotExist:
         print("Error")
         
-    products = Crop.objects.all()
-    return render(request, "auth-templates/profile.html",{"processor":processor,"products":products})
+    return render(request, "auth-templates/profile.html",{"processor":processor})
 
+
+@login_required
+def newCrop(request):
+
+    if request.method =="POST":
+        name = request.POST.get("name")
+        unit_of_measure = request.POST.get("measure")
+
+        newCrop = Crop.objects.create(name=name,unit_of_measure=unit_of_measure)
+        newCrop.save()
+    else:
+        return redirect("week")
+    
 
 def signup(request):
 

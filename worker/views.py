@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseServerError, Http404
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
-from processor.models import ExtensionWorker,Farm
+from processor.models import ExtensionWorker,Farm,FarmAnimals,FarmPractices,FarmReport,Season
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -46,8 +46,54 @@ def farms(request):
     
     data ={"title":"My Farms","farms":farms,"manager":manager}
 
-    return render(request, "workerTemp/base.html", {"title": "Farm", "templateName": "workerTemp/farms.html", "data": data})
+    return render(request, "workerTemp/base.html", {"templateName": "workerTemp/farms.html", "data": data})
 
+
+
+@login_required
+def farm(request,id):
+
+    user = request.user
+
+    # Get worker
+    try:
+        manager = ExtensionWorker.objects.get(phone_number = user.username)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+
+    try:
+        farm = Farm.objects.get(pk=id)
+
+    except ObjectDoesNotExist:
+        print("Single Farm function: Object could not be found")
+        raise Http404()
+
+    try:
+        practices = FarmPractices.objects.get(farm_id=farm)
+    except ObjectDoesNotExist:
+        print("Single Farm function: Object could not be found")
+        practices = None
+
+    # Get all farm Animals
+    animals = FarmAnimals.objects.filter(farm_id=farm)
+
+    # Get all reports
+    reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
+
+    season = Season.objects.filter(farm=farm).order_by("-planting_date")
+    
+    print(season)
+    if len(season) == 0:
+        season = []
+    else:
+        season = season[0]
+    
+
+    data = {"animals": animals, "farm": farm, "reports": reports,
+            "practice": practices, "manager": manager, "title": farm.farmer_name+"'s Farm","season":season}
+
+    return render(request, "workerTemp/base.html", {"templateName": "workerTemp/singleFarm.html", "data": data})
 
 
 

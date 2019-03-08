@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{%  static 'css/worker/farm.css'%}">
+</head>
+
+<body>
+
+    <!-- Menu -->
+
+    <div class="farm-menus">
+        <a class="farm-dets" href="#farm-details-menu-section">Farm Details</a>
+        <a class="farm-reps" href="#farm-report-menu-section">Farm Reports</a>
+    </div>
+
+    <section class="farm-body">
+        <div id="farm-details-menu-section">
+            <!-- Basic information -->
+            <div class="basic-info section">
+                <hr>
+                <h3>Basic information</h3>
+
+                <div class="details">
+                    <div>
+                        <p> <span class="title">Farm Id:</span> {{data.farm.farm_code}}</p>
+                        <p> <span class="title">Farmer:</span> {{data.farm.farmer_name}} </p>
+                        <p> <span class="title">Village: </span> {{data.farm.village_name}}</p>
+                    </div>
+
+                    <div>
+                        <p> <span class="title">Manager:</span>{{data.farm.manager.first_name}}</p>
+                        <p> <span class="title">Farm Size in ha:</span>{{data.farm.farm_size_ha}}</p>
+                        <p> <span class="title">Farm is organic:</span>{{data.farm.is_organic}}</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="single-farm-season section">
+                <hr>
+                <h3>Season information</h3>
+
+                {% if season|length == 0 %}
+                <!-- Season information -->
+                <div class="season-info">
+
+                    <div>
+                        <p><span class="title">Planting Date:</span> {{data.season.planting_date}}</p>
+                        <p><span class="title">Harvest Date:</span> {{data.season.expected_harvest_date}}</p>
+                    </div>
+
+                    <div>
+                        <p><span class="title">Yield: </span> {{data.season.estimated_yield}}</p>
+                        {%if data.season.season_active%}
+                        <p class="title">Season is Active</p>
+
+                        {%else%}
+                        <a href="">Add Season</a>
+                        {%endif%}
+                    </div>
+                </div>
+                {%else%}
+                <a href="">Add Season</a>
+                {%endif%}
+
+
+            </div>
+
+            <!-- Farm Trend -->
+            <div class="single-farm-details section">
+                <hr>
+                <h3>Farm Details</h3>
+                <div class="farm-details">
+                    <h4>Farm Practices</h4>
+
+                    {%if data.practice%}
+                    <div class="practices">
+                        <div>
+                            <p><span class="title">Flood Irrigation:</span> {{data.practice.flood_irrigation}} </p>
+                            <p><span class="title">Sprinkler Irrigation:</span>
+                                {{data.practice.sprinkler_irrigation}}
+                            </p>
+                            <p><span class="title">Drip Irrigation:</span> {{data.practice.drip_irrigation}} </p>
+                            <p><span class="title">Natural Enemies:</span> {{data.practice.natural_enemies}} </p>
+                            <p><span class="title">Animal Manure:</span> {{data.practice.animal_manure}} </p>
+                        </div>
+
+                        <div>
+                            <p><span class="title">Green Manure: </span> {{data.practice.green_manure}} </p>
+                            <p><span class="title">Compost Manure: </span> {{data.practice.compost_used_per_ha}}
+                            </p>
+                            <p><span class="title">Compost used/ha: </span>
+                                {{data.practice.compost_used_quantity}}%</p>
+                            <p><span class="title">Animal Manure used/ha: </span>
+                                {{data.practice.animal_manure_quantity}}%</p>
+                            <p><span class="title">Does Manual Weeding: </span> {{data.practice.manua_weeding}}</p>
+                        </div>
+                    </div>
+                    {%else%}
+                    <div class="practices-add">
+                        <a href="">Add Farm Practice</a>
+                    </div>
+                    {% endif %}
+
+                    <h4>Farm Animals</h4>
+                    {%if data.animals%}
+                    <div class="animals">
+                        <table>
+                            <tr>
+                                <th>Animal Name</th>
+                                <th>Number of Animals</th>
+                                <th>% used as manure</th>
+
+                            </tr>
+                            {% for animal in data.animals%}
+                            <tr>
+
+                                <td>{{animal.animal_name}}</td>
+                                <td>{{animal.number_of_animals}}</td>
+                                <td>{{animal.percentage_as_manure}}</td>
+                            </tr>
+                            {%endfor%}
+
+                        </table>
+
+                    </div>
+                    {% else %}
+                    <div class="animals-add">
+                        <a href="">Add Farm Animals</a>
+                    </div>
+                    {% endif%}
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div id="farm-report-menu-section">
+
+            <div class="report-header">
+                <a href="">Add new Report</a>
+            </div>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Harvest Date</th>
+                    <th>Planting Date</th>
+                </tr>
+                {% for report in data.reports%}
+                <tr>
+                    <td>{{report.report_date}}</td>
+                    <td>{{report.season.expected_harvest_date}}</td>
+                    <td>{{report.season.planting_date}}</td>
+                </tr>
+                {%endfor%}
+
+            </table>
+        </div>
+
+
+
+
+
+
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/farm.js'%}"></script>
+</body>
+
+</html>
