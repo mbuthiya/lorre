@@ -1,0 +1,26 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{%static 'css/worker/farms.css'%}">
+</head>
+
+<body>
+
+    {% for farm in data.farms%}
+    <div class="single-farm">
+        <h3>{{farm.farm_code}}</h3>
+        <div>
+            <h4> <span class="highlight">Farmer:</span> {{farm.farmer_name}} Muriuki</h4>
+            <h4> <span class="highlight"> Village: {{farm.village_name}} </span> Kisumu </h4>
+        </div>
+    </div>
+    {% endfor %}
+    
+</body>
+
+</html>

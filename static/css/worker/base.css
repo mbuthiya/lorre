@@ -78,12 +78,6 @@ body {
 }
 
 
-
-.body{
- overflow-y: auto;
- height: 100vh;
-}
-
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
     position: absolute;
@@ -119,31 +113,6 @@ body {
     width: 100vw;
 }
 
-.worker-content .single-farm{
-    display: flex;
-    justify-content:space-between;
-    padding: 10px 20px;
-    font-family: Heebo;
-    margin-top: 10px;
-    box-shadow: 5px 2px 5px #596747;
-
-}
-
-.worker-content .single-farm h3{
-    color: #ddc35e;
-    font-size: 20px;
-    font-weight: bold;
-    align-self: center;
-}
-
-.worker-content .single-farm h4{
-    font-weight: normal;
-}
-.worker-content .single-farm .highlight{
-    color: #ddc35e;
-    font-size: 19px;
-    font-weight: bold;
-}
 
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

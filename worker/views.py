@@ -46,7 +46,7 @@ def farms(request):
     
     data ={"title":"My Farms","farms":farms,"manager":manager}
 
-    return render(request,"workerTemp/base.html",{"data":data})
+    return render(request, "workerTemp/base.html", {"title": "Farm", "templateName": "workerTemp/farms.html", "data": data})
 
 
 
