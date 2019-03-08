@@ -31,7 +31,6 @@
                     <p> <span class="title">Village: </span> {{data.farm.village_name}}</p>
                     <p> <span class="title">Manager:</span>{{data.farm.manager.first_name}}</p>
                     <p> <span class="title">Farm Size in ha:</span>{{data.farm.farm_size_ha}}</p>
-                    <p> <span class="title">Farm is organic:</span>{{data.farm.is_organic}}</p>
 
                 </div>
 
@@ -52,74 +51,131 @@
                 </div>
 
             </div>
-
-            <!-- Farm Trend -->
-            <div class="single-farm-trend section">
+            <div class="single-farm-season section">
                 <hr>
-                <h3>Farm Details</h3>
+                <h3>Season information</h3>
 
-                <div class="farm-details">
-                    <div class="practices">
-                        <h4>Farm Practices</h4>
-                        <p><span class="title">Uses Flood Irrigation:</span> {{data.practice.flood_irrigation}} </p>
-                        <p><span class="title">Uses Sprinkler Irrigation:</span> {{data.practice.sprinkler_irrigation}}
-                        </p>
-                        <p><span class="title">Uses Drip Irrigation:</span> {{data.practice.drip_irrigation}} </p>
-                        <p><span class="title">Has Natural Enemies:</span> {{data.practice.natural_enemies}} </p>
-                        <p><span class="title"> Uses Animal Manure:</span> {{data.practice.animal_manure}} </p>
-                        <p><span class="title">Uses Green Manure: </span> {{data.practice.green_manure}} </p>
-                        <p><span class="title">Uses Compost Manure: </span> {{data.practice.compost_used_per_ha}} </p>
-                        <p><span class="title">Compost used per ha: </span> {{data.practice.compost_used_quantity}}%</p>
-                        <p><span class="title">Animal Manure used per ha: </span>
-                            {{data.practice.animal_manure_quantity}}%</p>
-                        <p><span class="title">Does Manual Weeding: </span> {{data.practice.manua_weeding}}</p>
+                {% if data.seasons %}
+                <!-- Season information -->
 
+                {% for season in data.seasons %}
+                <div class="season-info">
+                    <div class="season-info-header">
+                        <h4> {{season.crop.name}} </h4>
                     </div>
-                    <div class="animals">
-                        <h4>Farm Animals</h4>
-                        <table>
-                            <tr>
-                                <th>Animal Name</th>
-                                <th>Number of Animals</th>
-                                <th>% used as manure</th>
 
-                            </tr>
-                            {% for animal in data.animals%}
-                            <tr>
+                    <div class="season-info-body">
 
-                                <td>{{animal.animal_name}}</td>
-                                <td>{{animal.number_of_animals}}</td>
-                                <td>{{animal.percentage_as_manure}}</td>
-                            </tr>
-                            {%endfor%}
 
-                        </table>
+                        <div>
+                            <p><span class="title">Planting Date:</span> {{season.planting_date}}</p>
+                            <p><span class="title">Harvest Date:</span> {{season.expected_harvest_date}}</p>
+                        </div>
 
+                        <div>
+                            <p><span class="title">Yield: </span> {{season.estimated_yield}}</p>
+                            <p><span class="title">Buying Cost/{{season.crop.unit_of_measure}}: </span>
+                                {{season.price_per_unit}}</p>
+
+                        </div>
                     </div>
+                    {%endfor%}
+
+                    {%else%}
+                    <div class="no-active-seasons">
+                        <h4>There are no active seasons</h4>
+                        <a href="">View previous seasons</a>
+                    </div>
+                    {%endif%}
+
+
                 </div>
 
+
+                <!-- Farm Trend -->
+                <div class="single-farm-trend section">
+                    <hr>
+                    <h3>Farm Details</h3>
+
+                    <div class="farm-details">
+                        <div class="practices">
+                            <h4>Farm Practices</h4>
+                            {%if data.practice%}
+                            <p><span class="title">Uses Flood Irrigation:</span> {{data.practice.flood_irrigation}} </p>
+                            <p><span class="title">Uses Sprinkler Irrigation:</span>
+                                {{data.practice.sprinkler_irrigation}}
+                            </p>
+                            <p><span class="title">Uses Drip Irrigation:</span> {{data.practice.drip_irrigation}} </p>
+                            <p><span class="title">Has Natural Enemies:</span> {{data.practice.natural_enemies}} </p>
+                            <p><span class="title"> Uses Animal Manure:</span> {{data.practice.animal_manure}} </p>
+                            <p><span class="title">Uses Green Manure: </span> {{data.practice.green_manure}} </p>
+                            <p><span class="title">Uses Compost Manure: </span> {{data.practice.compost_used_per_ha}}
+                            </p>
+                            <p><span class="title">Compost used per ha: </span>
+                                {{data.practice.compost_used_quantity}}%</p>
+                            <p><span class="title">Animal Manure used per ha: </span>
+                                {{data.practice.animal_manure_quantity}}%</p>
+                            <p><span class="title">Does Manual Weeding: </span> {{data.practice.manua_weeding}}</p>
+
+                            {%else%}
+                            <h4>There are no farm practices</h4>
+                            {%endif%}
+
+                        </div>
+                        <div class="animals">
+                            <h4>Farm Animals</h4>
+                            <table>
+                                <tr>
+                                    <th>Animal Name</th>
+                                    <th>Number of Animals</th>
+                                    <th>% used as manure</th>
+
+                                </tr>
+
+                                {% if data.animals %}
+                                {% for animal in data.animals%}
+                                <tr>
+
+                                    <td>{{animal.animal_name}}</td>
+                                    <td>{{animal.number_of_animals}}</td>
+                                    <td>{{animal.percentage_as_manure}}</td>
+                                </tr>
+                                {%endfor%}
+                                {% else %}
+                                <td colspan="4" class="empty">There are no farms Animals</td>
+                                {%endif%}
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-        <div id="farm-report-menu-section">
-            <table>
-                <tr>
-                    <th>Report Date</th>
-                    <th>Manager</th>
-                    <th>Season Harvest Date</th>
-                    <th>Season Planting Date</th>
-                </tr>
-                {% for report in data.reports%}
-                <tr>
-                    <td> <a class="reportLink" href="{%url 'report' id=report.id %}">{{report.report_date}}</a> </td>
-                    <td>{{report.manager}}</td>
-                    <td>{{report.season.expected_harvest_date}}</td>
-                    <td>{{report.season.planting_date}}</td>
-                </tr>
-                {%endfor%}
+            <div id="farm-report-menu-section">
+                <table>
+                    <tr>
+                        <th>Report Date</th>
+                        <th>Manager</th>
+                        <th>Season Harvest Date</th>
+                        <th>Season Planting Date</th>
+                    </tr>
+                    {%if data.reports%}
+                    {% for report in data.reports%}
+                    <tr>
+                        <td> <a class="reportLink" href="{%url 'report' id=report.id %}">{{report.report_date}}</a>
+                        </td>
+                        <td>{{report.manager}}</td>
+                        <td>{{report.season.expected_harvest_date}}</td>
+                        <td>{{report.season.planting_date}}</td>
+                    </tr>
+                    {%endfor%}
+                    {%else%}
+                    <td colspan="4" class="empty">Farm has no farm reports </td>
+                    {%endif%}
 
-            </table>
-        </div>
+                </table>
+            </div>
 
 
 

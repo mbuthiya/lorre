@@ -54,6 +54,7 @@ def overview_trend(request):
     ).generate()
 
     total_investment = Season.total_investment()
+    
     average_cost = Season.average_cost_per()
 
     print(average_cost)
@@ -197,7 +198,9 @@ def single_farm(request, id):
     # Sum of yeild from this and previous season
     status,percentage = Season.get_farm_yield(farm)
     
-   
+    seasons = Season.objects.filter(farm=farm)
+    active_seasons = [active for active in seasons if active.season_active==True]
+
     # Get chart
     farm_chart = FarmTrend(
         height=300,
@@ -219,7 +222,7 @@ def single_farm(request, id):
     # Get all reports
     reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
     
-    data={"status":status,"percentage":percentage,"farm_trend":farm_chart,"animals":animals,"farm":farm,"reports":reports,"practice":practices}
+    data={"status":status,"percentage":percentage,"farm_trend":farm_chart,"animals":animals,"farm":farm,"reports":reports,"practice":practices,"seasons":active_seasons}
     
     return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/farm.html", "current_processor": current_processor, "data": data})
     

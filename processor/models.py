@@ -93,11 +93,12 @@ class Season(models.Model):
     @classmethod
     def total_investment(cls):
 
-        this_year = [seasons for seasons in cls.objects.all() if seasons.planting_date.year== datetime.today().year]
+        this_year = [seasons for seasons in cls.objects.all() if seasons.planting_date.year== datetime.today().year-1]
         investment = 0
+
         
         if len(this_year) > 0:
-            investment = sum(season.farm.total_investment for season in this_year)
+            investment = sum([season.investment for season in this_year])
         
         return investment
     
@@ -111,7 +112,9 @@ class Season(models.Model):
 
         season_average = 0
         try:
-            seasons_cost//seasons_yield
+            season_average=(seasons_cost*seasons_yield)//seasons_yield
+            
+            print(seasons_yield)
         except ZeroDivisionError:
             print("Not divisible")
         

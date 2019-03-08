@@ -1,12 +1,12 @@
 /*#ddc35e 0b0d09 596747  fcfaf4*/
-body{
+body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.farm-body{
-    overflow-y:auto;
+.farm-body {
+    overflow-y: auto;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -14,13 +14,13 @@ body{
 
 }
 
-.farm-menus{
+.farm-menus {
     max-width: 100%;
     display: flex;
     background-color: #0b0d09;
 }
 
-.farm-menus a{
+.farm-menus a {
     flex: 1;
     padding: 2vh 0;
     text-align: center;
@@ -30,12 +30,12 @@ body{
     border: 1px solid #fcfaf4;
 }
 
-.section{
-    padding:40px;
+.section {
+    padding: 40px;
     margin-top: 5vh;
 }
 
-.section hr{
+.section hr {
     width: 10vw;
     margin: 0;
     border: none;
@@ -45,7 +45,7 @@ body{
     background-color: #ddc35e;
 }
 
-.section h3{
+.section h3 {
     font-family: Heebo;
     font-size: 25px;
     font-weight: bold;
@@ -53,58 +53,100 @@ body{
 }
 
 
-.basic-info .details p{
-   display: inline;
-   margin: 20px;
-   font-size: 18px;
-   font-family: Heebo;
+.basic-info .details p {
+    display: inline;
+    margin: 20px;
+    font-size: 18px;
+    font-family: Heebo;
 }
-.basic-info .details .title{
+
+.basic-info .details .title {
     color: #ddc35e;
     font-weight: bold;
     margin-right: 5px;
 }
 
-.single-farm-trend .trend-details{
+.single-farm-trend .trend-details {
     display: flex;
     justify-content: space-between;
 }
 
-.single-farm-trend .trend-details h4{
+.single-farm-trend .trend-details h4 {
     display: flex;
     align-items: center;
     font-family: Heebo;
     font-size: 20px;
 }
 
-.trend-details h4 .highlight {
-    color: #ddc35e;
-    margin:0 5px;
+.no-active-seasons {
+    text-align: center;
+    font-family: Heebo;
 }
 
-.farm-details{
+.no-active-seasons h4 {
+    font-size: 20px;
+}
+
+.no-active-seasons a {
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 24px;
+    background-color: #ddc35e;
+    color: #596747;
+    box-shadow: 1px 5px 5px rgba(89, 103, 71, 0.6);
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Heebo;
+}
+
+.season-info-header h4{
+    color: #596747;
+    font-size: 20px;
+    text-decoration: underline;
+    font-family: Heebo;
+}
+
+.season-info-body{
+    font-family: Heebo;
+    display: flex;
+    justify-content: space-around;
+}
+
+.title {
+    color: #ddc35e;
+    font-family: Heebo;
+    font-weight: bold;
+}
+
+.trend-details h4 .highlight {
+    color: #ddc35e;
+    margin: 0 5px;
+}
+
+.farm-details {
     display: flex;
     justify-content: space-between;
 }
 
-.farm-details .practices{
+.farm-details .practices {
     flex: 1;
     font-family: Heebo;
 
 }
 
 .practices h4,
-.animals h4{
-     font-family: Heebo;
+.animals h4 {
+    font-family: Heebo;
     font-size: 20px;
     color: #0b0d09;
 }
-.practices .title{
+
+.practices .title {
     color: #ddc35e;
     font-weight: bold;
 }
 
-.animals{
+.animals {
     flex: 2;
 }
 
@@ -121,6 +163,7 @@ th {
     text-align: center;
 
 }
+
 .reportLink {
     color: #ddc35e;
     font-weight: bold;
@@ -141,7 +184,7 @@ td:first-child {
     margin-top: 5vh;
 }
 
-#farm-report-menu-section{
+#farm-report-menu-section {
     display: none;
     transition: all 0.4s ease-in-out;
     padding: 40px;
