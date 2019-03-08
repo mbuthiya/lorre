@@ -93,12 +93,31 @@ class Season(models.Model):
     @classmethod
     def total_investment(cls):
 
-        seasons= cls.objects.filter(planting_date=datetime.today().year)
+        this_year = [seasons for seasons in cls.objects.all() if seasons.planting_date.year== datetime.today().year]
         investment = 0
-        if len(seasons) >0:
-            investment = sum(season.farm.total_investment for season in seasons)
+        
+        if len(this_year) > 0:
+            investment = sum(season.farm.total_investment for season in this_year)
         
         return investment
+    
+    @classmethod
+    def average_cost_per(cls):
+        all_seasons = cls.objects.all()
+
+
+        seasons_cost = sum([season.price_per_unit for season in all_seasons])
+        seasons_yield = sum([season.estimated_yield for season in all_seasons])
+
+        season_average = 0
+        try:
+            seasons_cost//seasons_yield
+        except ZeroDivisionError:
+            print("Not divisible")
+        
+        return season_average
+
+
 
     @classmethod
     def this_weeks_harvest(cls):

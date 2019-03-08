@@ -53,7 +53,12 @@ def overview_trend(request):
         explicit_size=True,
     ).generate()
 
-    data = {"trend_chart": trend_chart,"added":Farm.added(),"average_yield":Season.average_yield()}
+    total_investment = Season.total_investment()
+    average_cost = Season.average_cost_per()
+
+    print(average_cost)
+
+    data = {"trend_chart": trend_chart,"added":Farm.added(),"average_yield":Season.average_yield(),"investment":total_investment,"cost":average_cost}
 
     return render(request, "dashboard-templates/dashboard.html", {"title": "Processor Charts", "templateName": "dashboard-templates/trend.html", "current_processor": current_processor, "data": data})
 
