@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseServerError, Http404, JsonResponse
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
-from processor.models import ExtensionWorker,Farm,FarmAnimals,FarmPractices,FarmReport,Season,FarmCrop,CropInputs,CropManagement,Crop
+from processor.models import ExtensionWorker,Farm,FarmAnimals,FarmPractices,FarmReport,Season,FarmCrop,CropInputs,CropManagement,Crop,Requests
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -154,9 +154,10 @@ def report(request, id):
 
 
     cropManagement = CropManagement.objects.filter(report=report)
-   
+    
+    requests = Requests.objects.filter(report=report)
 
-    data = {"title": "Report for "+report.farm_id.farmer_name,"manager":manager,"report":report,"crops":crops,"cropInputs":cropInputs,"cropManagement":cropManagement}
+    data = {"title": "Report for "+report.farm_id.farmer_name,"manager":manager,"report":report,"crops":crops,"cropInputs":cropInputs,"cropManagement":cropManagement,"requests":requests}
 
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/report.html", "data": data})
 
@@ -247,6 +248,26 @@ def new_crop_Input(request, id):
     cropInput.save()
 
     data = {"success": "Successfully added new crop input"}
+    return JsonResponse(data)
+
+
+
+@login_required(login_url="worker-login")
+def new_crop_Request(request, id):
+
+    name = request.POST.get("name")
+    cost= request.POST.get("cost")
+    reason = request.POST.get("reason")
+
+    try:    
+        report = FarmReport.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        raise Http404()
+    
+
+    request = Requests.objects.create(report=report,name=name,cost=int(cost),reason=reason)
+    request.save()
+    data = {"success": "Successfully added new request"}
     return JsonResponse(data)
 
 

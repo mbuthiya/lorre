@@ -182,6 +182,49 @@
         </div>
 
 
+        <div class="farms-requests section">
+
+            <hr>
+            <h3>Farm Requests</h3>
+
+            <div class="crop">
+                <h4> Farm Requests </h4>
+
+                <form id="farm-request-form">
+                    {% csrf_token %}
+                    <input type="text" name="id" class="requestId" value="{{data.report.id}}" hidden>
+                    <input type="text" name="name" placeholder="Request Name">
+                    <input type="number" name="cost" placeholder="Cost of Request">
+                    <textarea name="reason" cols="30" rows="10" placeholder="Reason for Request"></textarea>
+                    <input type="submit" value="Add Data">
+                </form>
+
+                <table>
+                    <tr>
+                        <th>Request Name</th>
+                        <th>Cost</th>
+                        <th> Date of request</th>
+
+                    </tr>
+
+                    {% if data.requests %}
+                    {% for request in data.requests %}
+                    <tr>
+                        <td>{{request.name}}</td>
+                        <td>{{request.cost}} {{input.product_quantity_si}} </td>
+                        <td>{{request.date}}</td>
+                    </tr>
+                    {%endfor%}
+                    {%else%}
+                    <td colspan="3">No Requests</td>
+                    {%endif%}
+                </table>
+
+            </div>
+
+        </div>
+
+
     </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

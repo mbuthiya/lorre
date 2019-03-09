@@ -15,5 +15,7 @@ urlpatterns = [
     path("report/<int:id>/cropInfo",views.new_crop_info,name="new-crop-info"),
     path("report/<int:id>/cropManage",views.new_crop_manage,name="new-crop-manage"),
     path("report/<int:id>/cropInput",views.new_crop_Input,name="new-crop-manage"),
+    path("report/<int:id>/newRequest",
+         views.new_crop_Request, name="new-crop-request"),
 
 ]

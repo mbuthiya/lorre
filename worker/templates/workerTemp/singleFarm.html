@@ -167,7 +167,7 @@
                 </tr>
                 {% for report in data.reports%}
                 <tr>
-                    <td>{{report.report_date}}</td>
+                    <td> <a href="{%url 'report' report.id%}">{{report.report_date}}</a> </td>
                     <td>{{report.season.expected_harvest_date}}</td>
                     <td>{{report.season.planting_date}}</td>
                 </tr>

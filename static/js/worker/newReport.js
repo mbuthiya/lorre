@@ -71,3 +71,24 @@ $("#farm-input-form").submit(function () {
     })
 
 })
+
+$("#farm-request-form").submit(function () {
+    event.preventDefault()
+    var report_id = $(".requestId").val()
+    var form = $("#farm-request-form")
+
+    $.ajax({
+        'url': '/manager/report/' + report_id + '/newRequest',
+        'type': 'POST',
+        'data': form.serialize(),
+        'dataType': 'json',
+        'success': function (data) {
+            alert(data['success'])
+
+        },
+        "error":function(err){
+            console.log(err)
+        }
+    })
+
+})
