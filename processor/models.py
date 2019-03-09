@@ -82,7 +82,7 @@ class Season(models.Model):
     planting_date = models.DateField()
     expected_harvest_date = models.DateField()
     estimated_yield = models.IntegerField()
-    season_active = models.BooleanField(default=False)
+    season_active = models.BooleanField(default=True)
     price_per_unit = models.IntegerField()
     investment = models.IntegerField(default=0)
 

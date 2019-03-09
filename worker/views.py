@@ -271,4 +271,53 @@ def new_crop_Request(request, id):
     return JsonResponse(data)
 
 
+@login_required(login_url="worker-login")
+def new_season(request):
+
+    if request.method == 'POST':
+        farm = request.POST.get("farm")
+        crop= request.POST.get("crop")
+        planting = request.POST.get("planting")
+        harvesting = request.POST.get("harvest")
+        yields = request.POST.get("yield")
+        price = request.POST.get("price")
+
+        # Get worker
+        try:
+            
+            farm_ac = Farm.objects.get(pk=int(farm))
+        except ObjectDoesNotExist:
+            return Http404()
+        # Get worker
+        try:
+            
+            crop_ac = Crop.objects.get(pk=int(crop))
+        except ObjectDoesNotExist:
+            return Http404()
+
+        newSeason = Season.objects.create(farm=farm_ac, crop=crop_ac, planting_date=planting, expected_harvest_date=harvesting, estimated_yield=yields, price_per_unit=price)
+
+        newSeason.save()
+
+        return redirect("worker-farms")
+
+    user = request.user
+    
+    # Get worker 
+    try:
+        print(user)
+        manager = ExtensionWorker.objects.get(phone_number = user.username)
+    except ObjectDoesNotExist:
+        return Http404()
+    
+
+    # Get all the farms
+    farms = Farm.objects.filter(manager=manager)
+    crops = Crop.objects.all()
+    
+    data ={"title":"New Season","farms":farms,"manager":manager,"crops":crops}
+
+    return render(request, "workerTemp/base.html", {"templateName": "workerTemp/newseason.html", "data": data})
+
+
 

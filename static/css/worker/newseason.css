@@ -1,0 +1,77 @@
+/*#ddc35e 0b0d09 596747  fcfaf4*/
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.add-season-body {
+    overflow-y: auto;
+    max-height: 100vh;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fcfaf4;
+
+}
+
+.add-season-body h2{
+    text-align: center;
+    font-family: Heebo;
+    color: #596747;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+form label {
+    align-self: flex-start;
+    font-family: Heebo;
+    color: #596747;
+    flex: 1;
+    margin-left: 5%;
+}
+
+form input[type=text],
+form input[type=number],
+form input[type=date] {
+    align-self: center;
+    padding: 15px 5px;
+    margin-bottom: 10px;
+    border: none;
+    width: 90%;
+    background-color: #dae0d2;
+    font-family: Heebo;
+}
+
+form input:focus {
+    outline-color: #ddc35e;
+}
+
+input[type="submit"] {
+    width: 45%;
+    padding: 7px 5px;
+    border-radius: 16px;
+    border: none;
+    margin-bottom: 10px;
+    font-family: Heebo;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #596747;
+    color: #fcfaf4;
+}
+
+
+select {
+    align-self: center;
+    padding: 15px 5px;
+    margin-bottom: 10px;
+    border: none;
+    width: 90%;
+    background-color: #dae0d2;
+    font-family: Heebo;
+}
