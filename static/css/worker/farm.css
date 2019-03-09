@@ -7,6 +7,8 @@ body{
 .farm-body{
     overflow-y: auto;
     width: 100vw;
+    margin-top: 20px;
+
     height: 100vh;
 }
 
@@ -122,7 +124,7 @@ td:first-child {
 }
 .report-header{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 .report-header a{
     margin: 20px;

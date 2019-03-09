@@ -72,6 +72,10 @@
 
                         </div>
                     </div>
+
+                    <div class="report-header">
+                        <a href="{%url 'new-report' id=data.farm.id  season=season.id%}">Add new Report</a>
+                    </div>
                     {%endfor%}
 
                     {%else%}
@@ -155,10 +159,6 @@
 
 
         <div id="farm-report-menu-section">
-
-            <div class="report-header">
-                <a href="">Add new Report</a>
-            </div>
             <table>
                 <tr>
                     <th>Date</th>

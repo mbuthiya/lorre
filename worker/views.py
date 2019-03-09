@@ -49,9 +49,8 @@ def farms(request):
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/farms.html", "data": data})
 
 
-
-@login_required
-def farm(request,id):
+@login_required(login_url="worker-login")
+def farm(request, id):
 
     user = request.user
 
@@ -93,4 +92,59 @@ def farm(request,id):
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/singleFarm.html", "data": data})
 
 
+@login_required(login_url="worker-login")
+def new_report(request,id,season):
 
+    user = request.user
+
+    # Get worker
+    try:
+        manager = ExtensionWorker.objects.get(phone_number=user.username)
+    except ObjectDoesNotExist:
+        print("Could not find manager")
+        raise Http404()
+
+    try:
+        farm = Farm.objects.get(pk=id)
+
+    except ObjectDoesNotExist:
+        print("Single Farm function: Object could not be found")
+        raise Http404()
+    try:
+        season = Season.objects.get(pk=season)
+
+    except ObjectDoesNotExist:
+        print("Single Season function: Object could not be found")
+        raise Http404()
+
+    try:
+        reports = FarmReport.objects.get(season=season)
+        return redirect("report",reports.id)
+
+    except ObjectDoesNotExist:
+        report = FarmReport.objects.create(farm_id=farm,manager=manager,season=season)
+        report.save()
+        return redirect("report", report.id)
+
+   
+
+
+@login_required(login_url="worker-login")
+def report(request, id):
+
+    user = request.user
+
+    # Get worker
+    try:
+        manager = ExtensionWorker.objects.get(phone_number=user.username)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    try:
+        reports = FarmReport.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        raise Http404()
+    
+    data = {"title": "Report for "+reports.farm_id.farmer_name,"manager":manager}
+
+    return render(request, "workerTemp/base.html", {"templateName": "workerTemp/report.html", "data": data})

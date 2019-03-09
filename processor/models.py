@@ -191,8 +191,7 @@ class FarmAnimals(models.Model):
     percentage_as_manure = models.IntegerField()
 
     def __str__(self):
-        return self.animal_name
-
+        return self.anaimal_name
 
 class FarmReport(models.Model):
     farm_id = models.ForeignKey(Farm, on_delete=models.CASCADE)
@@ -200,7 +199,7 @@ class FarmReport(models.Model):
     manager = models.ForeignKey(ExtensionWorker, on_delete=models.CASCADE)
     season = models.ForeignKey(Season, on_delete=models.SET_NULL, null=True)
     approved = models.BooleanField(default=True)
-    comment = models.TextField()
+    comment = models.TextField(null=True)
 
     def __str__(self):
         return str(self.report_date)
