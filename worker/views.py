@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse, HttpResponseServerError, Http404
+from django.http import HttpResponse, HttpResponseServerError, Http404, JsonResponse
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
-from processor.models import ExtensionWorker,Farm,FarmAnimals,FarmPractices,FarmReport,Season
+from processor.models import ExtensionWorker,Farm,FarmAnimals,FarmPractices,FarmReport,Season,FarmCrop,CropInputs,CropManagement,Crop
 from django.core.exceptions import ObjectDoesNotExist
+
+
 
 
 
@@ -81,6 +83,7 @@ def farm(request, id):
     reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
 
     seasons = Season.objects.filter(farm=farm)
+
     active_seasons = [
         active for active in seasons if active.season_active == True]
 
@@ -141,10 +144,110 @@ def report(request, id):
         raise Http404()
 
     try:
-        reports = FarmReport.objects.get(pk=id)
+        report = FarmReport.objects.get(pk=id)
     except ObjectDoesNotExist:
         raise Http404()
     
-    data = {"title": "Report for "+reports.farm_id.farmer_name,"manager":manager}
+    crops = FarmCrop.objects.filter(report=report)
+
+    cropInputs = CropInputs.objects.filter(report=report)
+
+
+    cropManagement = CropManagement.objects.filter(report=report)
+   
+
+    data = {"title": "Report for "+report.farm_id.farmer_name,"manager":manager,"report":report,"crops":crops,"cropInputs":cropInputs,"cropManagement":cropManagement}
 
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/report.html", "data": data})
+
+
+@login_required(login_url="worker-login")
+def newComment(request, id):
+
+
+    comment = request.POST.get("comment")
+    try:
+        report = FarmReport.objects.filter(pk=id).update(comment=comment)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+
+    data = {"success":"Added new Comment"}
+    return JsonResponse(data)
+
+
+@login_required(login_url="worker-login")
+def new_crop_info(request, id):
+
+    cropId = request.POST.get("crop")
+    plotsize = request.POST.get("plotsize")
+    intercrop= request.POST.get("inter")
+
+    try:
+        report = FarmReport.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+
+    try:
+        crop = Crop.objects.get(pk = int(cropId))
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    cropInfo = FarmCrop.objects.create(report=report,crop=crop,inter_crop=intercrop,size= int(plotsize))
+
+    cropInfo.save()
+
+    data = {"success":"Successfully added new crop information"}
+    return JsonResponse(data)
+
+
+@login_required(login_url="worker-login")
+def new_crop_manage(request, id):
+
+    cropId = request.POST.get("crop")
+    activity = request.POST.get("activity")
+    status= request.POST.get("status")
+    comment = request.POST.get("comment")
+
+    try:
+        report = FarmReport.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        raise Http404()
+
+
+    try:
+        crop = Crop.objects.get(pk = int(cropId))
+    except ObjectDoesNotExist:
+        raise Http404()
+
+    cropManage = CropManagement.objects.create(crop=crop,report=report,activity=activity,activity_status=status,comment=comment)
+    cropManage.save()
+
+    data = {"success":"Successfully added new Activity"}
+    return JsonResponse(data)
+
+
+@login_required(login_url="worker-login")
+def new_crop_Input(request, id):
+
+    product = request.POST.get("product")
+    quantity= request.POST.get("quantity")
+    si = request.POST.get("si")
+    date = request.POST.get("date")
+
+    try:    
+        report = FarmReport.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        raise Http404()
+    
+
+    cropInput = CropInputs.objects.create(report=report, product=product, product_quantity=int(quantity), product_quantity_si=si,date_of_use=date)
+
+    cropInput.save()
+
+    data = {"success": "Successfully added new crop input"}
+    return JsonResponse(data)
+
+
+

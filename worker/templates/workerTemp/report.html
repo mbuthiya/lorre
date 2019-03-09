@@ -6,19 +6,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'css/worker/new-report.css'%}">
-
+    <link rel="stylesheet" href="{%  static 'css/worker/new-report.css'%}">
 </head>
 
 <body>
+    <section class="report-body">
 
-    <div class="report-body">
+        <div class="basic-report section">
 
-      Hello
+            <hr>
+            <h3>Basic Information</h3>
 
-    </div>
+            <div class="report-details">
+
+                <div class="details">
+                    <h4>Report Overview</h4>
+                    <p> <span class="title">Report Date: </span> {{data.report.report_date}} </p>
+                    <p> <span class="title">Manager: </span> {{data.report.manager.first_name}} </p>
+                    <p> <span class="title">Season Planting Date: </span> {{data.report.season.planting_date}} </p>
+                    <p> <span class="title">Season Planting Date: </span> {{data.report.season.expected_harvest_date}}
+                    </p>
+                </div>
+                <div class="comment">
+                    <h4>Report Comment</h4>
+                    {% if data.report.comment%}
+
+                    <p>{{data.report.comment}}</p>
+                    {%else%}
+                    <form id="comment-form">
+                        {% csrf_token %}
+                        <input type="text" name="id" class="commentId" value="{{data.report.id}}" hidden>
+                        <textarea name="comment" id="" cols="30" rows="10" placeholder="Add new comment" required></textarea>
+                        <input type="submit" value="Submit">
+                    </form>
+                    {%endif%}
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="crop-information section">
+
+            <hr>
+            <h3>Crop Information</h3>
+
+            <div class="crop">
+                <h4>{{data.report.season.crop.name}}</h4>
+
+                <form id="farm-crop-form">
+                    {% csrf_token %}
+                    <input type="text" name="id" class="farm-cropId" value="{{data.report.id}}" hidden>
+                    <input type="text" name="crop" class="id" value="{{data.report.season.crop.id}}" hidden>
+                    <input type="number" name="plotsize" placeholder="Plot Size" id="plotsize">
+                    <input type="text" name="inter" placeholder="Inter-Crop" id="inter">
+                    <input type="submit" value="Add Data">
+                </form>
+
+                <table id="farm-crop-table">
+                    <tr>
+                        <th>Plot Size</th>
+                        <th>InterCrop</th>
+                    </tr>
+
+                    {% for crop in data.crops%}
+                    <tr>
+                        <td>{{crop.size}}</td>
+                        <td>{{crop.inter_crop}}</td>
+                    </tr>
+                    {%endfor%}
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="crop-management section">
+
+            <hr>
+            <h3>Crop Management</h3>
+
+            <div class="crop">
+                <h4>{{data.report.season.crop.name}}</h4>
+
+                <form id="farm-manage-form">
+                    {% csrf_token %}
+                    <input type="text" name="id" class="manageId" value="{{data.report.id}}" hidden>
+                    <input type="text" name="crop" class="id" value="{{data.report.season.crop.id}}" hidden>
+                    <input type="text" name="activity" placeholder="Name of Activity">
+                    <select name="status">
+                        <option value="">Activity Status</option>
+                        <option value="Good">Good</option>
+                        <option value="Bad">Bad</option>
+                        <option value="Ugly">Ugly</option>
+                    </select>
+                    <textarea name="comment" cols="30" rows="10" placeholder="Add new comment"></textarea>
+                    <input type="submit" value="Add Data">
+                </form>
+
+                <table>
+                    <tr>
+
+                        <th>Activity</th>
+                        <th>Activity Status</th>
+                        <th>Comment</th>
+                    </tr>
+
+
+                    {% for management in data.cropManagement%}
+                    <tr>
+                        <td>{{management.activity}}</td>
+                        <td>{{management.activity_status}}</td>
+                        <td>{{management.comment}}</td>
+                    </tr>
+                    {%endfor%}
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="crop-inputs section">
+
+            <hr>
+            <h3>Crop Inputs</h3>
+
+            <div class="crop">
+                <h4>{{data.report.season.crop.name}}</h4>
+
+                <form id="farm-input-form">
+                    {% csrf_token %}
+                    <input type="text" name="id" class="inputId" value="{{data.report.id}}" hidden>
+                    <input type="text" name="product" placeholder="Name of Product used">
+                    <input type="number" name="quantity" placeholder="Quantity of product used">
+
+                    <select name="si">
+                        <option value="grams">grams</option>
+                        <option value="liters">liters</option>
+                        <option value="kilograms">Kilograms</option>
+                    </select>
+
+                    <label for="date">When was the product used:</label>
+
+                    <input type="date" name="date" placeholder="Inter-Crop" id="date">
+                    <input type="submit" value="Add Data">
+                </form>
+
+                <table>
+                    <tr>
+                        <th>Product Used</th>
+                        <th>Product Quantity</th>
+                        <th> Date of use</th>
+
+                    </tr>
+
+                    {% if data.cropInputs %}
+                    {% for input in data.cropInputs%}
+                    <tr>
+                        <td>{{input.product}}</td>
+                        <td>{{input.product_quantity}} {{input.product_quantity_si}} </td>
+                        <td>{{input.date_of_use}}</td>
+                    </tr>
+                    {%endfor%}
+                    {%else%}
+                    <td colspan="3">No Crop Info Data</td>
+                    {%endif%}
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{% static 'js/worker/newReport.js'%}"></script>
+    <script src="/static/js/worker/newReport.js"></script>
 </body>
 
 </html>

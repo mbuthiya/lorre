@@ -1,0 +1,177 @@
+/*#ddc35e 0b0d09 596747  fcfaf4*/
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.report-body {
+    overflow-y: auto;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #fcfaf4;
+
+}
+
+.section {
+    padding: 10px;
+    margin-top: 5vh;
+}
+
+.section hr {
+    width: 10vw;
+    margin: 0;
+    border: none;
+    height: 4px;
+    color: #ddc35e;
+    /* old IE */
+    background-color: #ddc35e;
+}
+
+.section h3 {
+    font-family: Heebo;
+    font-size: 25px;
+    font-weight: bold;
+    color: #596747;
+}
+
+.report-details {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.report-details h4 {
+    font-size: 20px;
+    font-family: Heebo;
+    color: #ddc35e;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+
+.report-details p {
+    font-family: Heebo;
+    font-size: 18px;
+}
+
+.report-details p .title {
+    color: #ddc35e;
+    font-weight: bold;
+}
+
+table {
+    font-family: Heebo;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+
+}
+
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #596747;
+    color: white;
+    text-align: center;
+}
+
+td:first-child {
+    margin-top: 5vh;
+}
+
+#comment-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+textarea{
+    width: 90%;
+    margin-bottom: 20px;
+    padding: 7px 5px;
+    border: none;
+    background-color: #dae0d2;
+}
+
+
+
+#comment-form input[type=submit]{
+      width: 45%;
+      padding: 7px 5px;
+      border-radius: 16px;
+      border:none;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #596747;
+      color: #fcfaf4;
+      
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+form label{
+    align-self: flex-start;
+    font-family: Heebo;
+    color: #596747;
+    flex: 1;
+    margin-left: 5%;
+}
+form input[type=text], form input[type=number],form input[type=date]{
+    align-self: center;
+    padding: 15px 5px;
+    margin-bottom: 10px;
+    border: none;
+    width: 90%;
+    background-color: #dae0d2;
+    font-family: Heebo;
+}
+
+form input:focus {
+    outline-color: #ddc35e;
+}
+
+ input[type="submit"] {
+      width: 45%;
+      padding: 7px 5px;
+      border-radius: 16px;
+      border:none;
+      margin-bottom: 10px;
+      font-family: Heebo;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #596747;
+      color: #fcfaf4;
+ }
+
+ select {
+     align-self: center;
+     padding: 15px 5px;
+     margin-bottom: 10px;
+     border: none;
+     width: 90%;
+     background-color: #dae0d2;
+     font-family: Heebo;
+ }
+
+
+ .crop h4{
+     font-family: Heebo;
+     color: #596747;
+     text-decoration: underline;
+ }
