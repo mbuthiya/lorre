@@ -73,9 +73,10 @@
                         </div>
 
                         <div>
-                            <p><span class="title">Yield: </span> {{season.estimated_yield}}</p>
+                            <p><span class="title">Yield: </span> {{season.estimated_yield}}
+                                {{season.crop.unit_of_measure}}</p>
                             <p><span class="title">Buying Cost/{{season.crop.unit_of_measure}}: </span>
-                                {{season.price_per_unit}}</p>
+                                {{season.price_per_unit}} cedi</p>
 
                         </div>
                     </div>
@@ -90,67 +91,67 @@
 
 
                 </div>
-
-
-                <!-- Farm Trend -->
-                <div class="single-farm-trend section">
-                    <hr>
-                    <h3>Farm Details</h3>
-
-                    <div class="farm-details">
-                        <div class="practices">
-                            <h4>Farm Practices</h4>
-                            {%if data.practice%}
-                            <p><span class="title">Uses Flood Irrigation:</span> {{data.practice.flood_irrigation}} </p>
-                            <p><span class="title">Uses Sprinkler Irrigation:</span>
-                                {{data.practice.sprinkler_irrigation}}
-                            </p>
-                            <p><span class="title">Uses Drip Irrigation:</span> {{data.practice.drip_irrigation}} </p>
-                            <p><span class="title">Has Natural Enemies:</span> {{data.practice.natural_enemies}} </p>
-                            <p><span class="title"> Uses Animal Manure:</span> {{data.practice.animal_manure}} </p>
-                            <p><span class="title">Uses Green Manure: </span> {{data.practice.green_manure}} </p>
-                            <p><span class="title">Uses Compost Manure: </span> {{data.practice.compost_used_per_ha}}
-                            </p>
-                            <p><span class="title">Compost used per ha: </span>
-                                {{data.practice.compost_used_quantity}}%</p>
-                            <p><span class="title">Animal Manure used per ha: </span>
-                                {{data.practice.animal_manure_quantity}}%</p>
-                            <p><span class="title">Does Manual Weeding: </span> {{data.practice.manua_weeding}}</p>
-
-                            {%else%}
-                            <h4>There are no farm practices</h4>
-                            {%endif%}
-
-                        </div>
-                        <div class="animals">
-                            <h4>Farm Animals</h4>
-                            <table>
-                                <tr>
-                                    <th>Animal Name</th>
-                                    <th>Number of Animals</th>
-                                    <th>% used as manure</th>
-
-                                </tr>
-
-                                {% if data.animals %}
-                                {% for animal in data.animals%}
-                                <tr>
-
-                                    <td>{{animal.animal_name}}</td>
-                                    <td>{{animal.number_of_animals}}</td>
-                                    <td>{{animal.percentage_as_manure}}</td>
-                                </tr>
-                                {%endfor%}
-                                {% else %}
-                                <td colspan="4" class="empty">There are no farms Animals</td>
-                                {%endif%}
-                            </table>
-
-                        </div>
-                    </div>
-
-                </div>
             </div>
+
+            <!-- Farm Trend -->
+            <div class="single-farm-trend section">
+                <hr>
+                <h3>Farm Details</h3>
+
+                <div class="farm-details">
+                    <div class="practices">
+                        <h4>Farm Practices</h4>
+                        {%if data.practice%}
+                        <p><span class="title">Uses Flood Irrigation:</span> {{data.practice.flood_irrigation}} </p>
+                        <p><span class="title">Uses Sprinkler Irrigation:</span>
+                            {{data.practice.sprinkler_irrigation}}
+                        </p>
+                        <p><span class="title">Uses Drip Irrigation:</span> {{data.practice.drip_irrigation}} </p>
+                        <p><span class="title">Has Natural Enemies:</span> {{data.practice.natural_enemies}} </p>
+                        <p><span class="title"> Uses Animal Manure:</span> {{data.practice.animal_manure}} </p>
+                        <p><span class="title">Uses Green Manure: </span> {{data.practice.green_manure}} </p>
+                        <p><span class="title">Uses Compost Manure: </span> {{data.practice.compost_used_per_ha}}
+                        </p>
+                        <p><span class="title">Compost used per ha: </span>
+                            {{data.practice.compost_used_quantity}}%</p>
+                        <p><span class="title">Animal Manure used per ha: </span>
+                            {{data.practice.animal_manure_quantity}}%</p>
+                        <p><span class="title">Does Manual Weeding: </span> {{data.practice.manua_weeding}}</p>
+
+                        {%else%}
+                        <h4>There are no farm practices</h4>
+                        {%endif%}
+
+                    </div>
+                    <div class="animals">
+                        <h4>Farm Animals</h4>
+                        <table>
+                            <tr>
+                                <th>Animal Name</th>
+                                <th>Number of Animals</th>
+                                <th>% used as manure</th>
+
+                            </tr>
+
+                            {% if data.animals %}
+                            {% for animal in data.animals%}
+                            <tr>
+
+                                <td>{{animal.animal_name}}</td>
+                                <td>{{animal.number_of_animals}}</td>
+                                <td>{{animal.percentage_as_manure}}</td>
+                            </tr>
+                            {%endfor%}
+                            {% else %}
+                            <td colspan="4" class="empty">There are no farms Animals</td>
+                            {%endif%}
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
 
             <div id="farm-report-menu-section">
                 <table>

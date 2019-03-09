@@ -35,7 +35,7 @@
                     <div>
                         <p> <span class="title">Manager:</span>{{data.farm.manager.first_name}}</p>
                         <p> <span class="title">Farm Size in ha:</span>{{data.farm.farm_size_ha}}</p>
-                        <p> <span class="title">Farm is organic:</span>{{data.farm.is_organic}}</p>
+
                     </div>
 
                 </div>
@@ -47,32 +47,43 @@
                 <hr>
                 <h3>Season information</h3>
 
-                {% if season|length == 0 %}
+                {% if data.seasons %}
                 <!-- Season information -->
+
+                {% for season in data.seasons %}
                 <div class="season-info">
-
-                    <div>
-                        <p><span class="title">Planting Date:</span> {{data.season.planting_date}}</p>
-                        <p><span class="title">Harvest Date:</span> {{data.season.expected_harvest_date}}</p>
+                    <div class="season-info-header">
+                        <h4> {{season.crop.name}} </h4>
                     </div>
 
-                    <div>
-                        <p><span class="title">Yield: </span> {{data.season.estimated_yield}}</p>
-                        {%if data.season.season_active%}
-                        <p class="title">Season is Active</p>
+                    <div class="season-info-body">
 
-                        {%else%}
-                        <a href="">Add Season</a>
-                        {%endif%}
+
+                        <div>
+                            <p><span class="title">Planting Date:</span> {{season.planting_date}}</p>
+                            <p><span class="title">Harvest Date:</span> {{season.expected_harvest_date}}</p>
+                        </div>
+
+                        <div>
+                            <p><span class="title">Yield: </span> {{season.estimated_yield}}
+                                {{season.crop.unit_of_measure}}</p>
+                            <p><span class="title">Buying Cost/{{season.crop.unit_of_measure}}: </span>
+                                {{season.price_per_unit}} cedi</p>
+
+                        </div>
                     </div>
+                    {%endfor%}
+
+                    {%else%}
+                    <div class="no-active-seasons">
+                        <h4>There are no active seasons</h4>
+                        <a href="">View previous seasons</a>
+                    </div>
+
+
+                    {%endif%}
                 </div>
-                {%else%}
-                <a href="">Add Season</a>
-                {%endif%}
-
-
             </div>
-
             <!-- Farm Trend -->
             <div class="single-farm-details section">
                 <hr>

@@ -16,11 +16,14 @@ body {
 
 }
 
-.single-farm h3 {
+.single-farm h3{
+     align-self: center;
+}
+.single-farm h3 a {
     color: #ddc35e;
     font-size: 18px;
     font-weight: bold;
-    align-self: center;
+   
 }
 
 .single-farm h4 {

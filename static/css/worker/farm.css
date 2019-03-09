@@ -136,13 +136,18 @@ td:first-child {
      font-family: Heebo;
 }
 
-.season-info{
-    display: flex;
-    justify-content: space-between;
+
+
+.season-info-header{
+    font-size: 20px;
+    color: #596747;
+    text-decoration: underline;
+    font-family: Heebo;
 }
 
-.season-info div{
-    flex: 1;
+
+.season-info-body{
+    font-size: 20px;
     font-family: Heebo;
 }
 

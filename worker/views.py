@@ -78,20 +78,17 @@ def farm(request,id):
     # Get all farm Animals
     animals = FarmAnimals.objects.filter(farm_id=farm)
 
-    # Get all reports
+    # Get all reports 
     reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
 
-    season = Season.objects.filter(farm=farm).order_by("-planting_date")
-    
-    print(season)
-    if len(season) == 0:
-        season = []
-    else:
-        season = season[0]
+    seasons = Season.objects.filter(farm=farm)
+    active_seasons = [
+        active for active in seasons if active.season_active == True]
+
     
 
     data = {"animals": animals, "farm": farm, "reports": reports,
-            "practice": practices, "manager": manager, "title": farm.farmer_name+"'s Farm","season":season}
+            "practice": practices, "manager": manager, "title": farm.farmer_name+"'s Farm", "seasons": active_seasons}
 
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/singleFarm.html", "data": data})
 

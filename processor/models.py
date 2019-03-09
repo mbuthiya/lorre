@@ -84,7 +84,7 @@ class Season(models.Model):
     estimated_yield = models.IntegerField()
     season_active = models.BooleanField(default=False)
     price_per_unit = models.IntegerField()
-    investment = models.IntegerField()
+    investment = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.planting_date)
