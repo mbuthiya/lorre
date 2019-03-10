@@ -222,6 +222,7 @@ def single_farm(request, id):
     # Get all reports
     reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
     
+    print(reports)
     data={"status":status,"percentage":percentage,"farm_trend":farm_chart,"animals":animals,"farm":farm,"reports":reports,"practice":practices,"seasons":active_seasons}
     
     return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/farm.html", "current_processor": current_processor, "data": data})

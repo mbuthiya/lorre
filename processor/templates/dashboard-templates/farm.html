@@ -152,31 +152,32 @@
 
             </div>
 
+        </div>
+        <div id="farm-report-menu-section">
+            <table>
+                <tr>
+                    <th>Report Date</th>
+                    <th>Manager</th>
+                    <th>Season Harvest Date</th>
+                    <th>Season Planting Date</th>
+                </tr>
 
-            <div id="farm-report-menu-section">
-                <table>
-                    <tr>
-                        <th>Report Date</th>
-                        <th>Manager</th>
-                        <th>Season Harvest Date</th>
-                        <th>Season Planting Date</th>
-                    </tr>
-                    {%if data.reports%}
-                    {% for report in data.reports%}
-                    <tr>
-                        <td> <a class="reportLink" href="{%url 'report' id=report.id %}">{{report.report_date}}</a>
-                        </td>
-                        <td>{{report.manager}}</td>
-                        <td>{{report.season.expected_harvest_date}}</td>
-                        <td>{{report.season.planting_date}}</td>
-                    </tr>
-                    {%endfor%}
-                    {%else%}
-                    <td colspan="4" class="empty">Farm has no farm reports </td>
-                    {%endif%}
+                {%if data.reports%}
+                {% for report in data.reports%}
+                <tr>
+                    <td> <a class="reportLink" href="{%url 'report' id=report.id %}">{{report.report_date}}</a>
+                    </td>
+                    <td>{{report.manager}}</td>
+                    <td>{{report.season.expected_harvest_date}}</td>
+                    <td>{{report.season.planting_date}}</td>
+                </tr>
+                {%endfor%}
+                {%else%}
+                <td colspan="4" class="empty">Farm has no farm reports </td>
+                {%endif%}
 
-                </table>
-            </div>
+            </table>
+        </div>
 
 
 
