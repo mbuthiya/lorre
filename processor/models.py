@@ -191,7 +191,7 @@ class FarmAnimals(models.Model):
     percentage_as_manure = models.IntegerField()
 
     def __str__(self):
-        return self.anaimal_name
+        return self.animal_name
 
 class FarmReport(models.Model):
     farm_id = models.ForeignKey(Farm, on_delete=models.CASCADE)
