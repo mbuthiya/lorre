@@ -287,7 +287,8 @@ def new_season(request):
         # Get worker
         try:
             
-            farm_ac = Farm.objects.get(pk=int(farm))
+            farm_ac = Farm.objects.get(pk=farm)
+            print(farm_ac)
         except ObjectDoesNotExist:
             return Http404()
         # Get worker
