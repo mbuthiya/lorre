@@ -165,7 +165,7 @@
                 {%if data.reports%}
                 {% for report in data.reports%}
                 <tr>
-                    <td> <a class="reportLink" href="{%url 'report' id=report.id %}">{{report.report_date}}</a>
+                    <td> <a class="reportLink" href="{%url 'manage-report' id=report.id %}">{{report.report_date}}</a>
                     </td>
                     <td>{{report.manager}}</td>
                     <td>{{report.season.expected_harvest_date}}</td>
