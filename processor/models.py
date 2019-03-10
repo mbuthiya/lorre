@@ -258,3 +258,9 @@ class Requests(models.Model):
 
         return cost_of_requests
     
+   
+    def add_to_season_investment(self):
+        update_invest=self.report.season.investment + self.cost
+        Season.objects.filter(pk=self.report.season.id).update(
+            investment=update_invest)
+    

@@ -267,6 +267,8 @@ def new_crop_Request(request, id):
 
     request = Requests.objects.create(report=report,name=name,cost=int(cost),reason=reason)
     request.save()
+
+    request.add_to_season_investment()
     data = {"success": "Successfully added new request"}
     return JsonResponse(data)
 
