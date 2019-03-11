@@ -23,7 +23,9 @@
                     required>
                 <input type="submit" value="Search">
             </form>
-            <a class="add-new-worker" href="{%url 'newWorker'%}">Add Worker</a>
+            <div class="new-worker-btn">
+                <a class="add-new-worker" href="{%url 'newWorker'%}">Add Worker</a>
+            </div>
             {% if data.workers%}
             <div class="workers-section">
                 {% for worker in data.workers %}

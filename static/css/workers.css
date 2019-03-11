@@ -14,13 +14,17 @@ body{
     padding: 40px;
 }
 
+form{
+
+    margin-bottom: 40px;
+
+}
 
 .search-bar-section input[type="text"] {
 
     padding: 15px 5px;
-    margin-bottom: 40px;
     border: none;
-    width: 60vw;
+    width: 50vw;
     background-color: #dae0d2;
     font-family: Heebo;
 
@@ -119,3 +123,4 @@ body{
     font-family: Heebo;
     margin: 20px;
 }
+
