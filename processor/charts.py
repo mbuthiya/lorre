@@ -128,23 +128,29 @@ class Trend():
 class FarmTrend():
 
     def __init__(self, **kwargs):
-       self.line_chart = pygal.Line(**kwargs)
+       self.line_chart = pygal.Bar(**kwargs)
        self.line_chart.title = "Harvesting trend"
        
 
     def get_data(self,farm):
 
-        years = range(farm.date_added.year, datetime.today().year + 1)
+        years = range(farm.date_added.year-3, datetime.today().year + 1)
+
+        print(years)
+
         self.line_chart.x_labels = map(str, years)
 
         all_harvests = Season.objects.filter(farm=farm)
         
+       
         total_year_yield = {}
+
 
         for harvest in all_harvests:
             total_year_yield.setdefault(harvest.expected_harvest_date.year,0)
             total_year_yield[harvest.expected_harvest_date.year] += harvest.estimated_yield    
 
+       
         data = []
 
         for year in years:
@@ -153,6 +159,7 @@ class FarmTrend():
             else:
                 data.append(None)
 
+        print(data)
         return data
 
     def generate(self,farm):

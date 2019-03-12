@@ -202,7 +202,7 @@ def single_farm(request, id):
     # Get chart
     farm_chart = FarmTrend(
         height=300,
-        width=500,
+        width=600,
         explicit_size=True,
     ).generate(farm)
 
