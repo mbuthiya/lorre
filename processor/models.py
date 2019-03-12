@@ -112,7 +112,7 @@ class Season(models.Model):
 
         season_average = 0
         try:
-            season_average=seasons_cost//seasons_yield
+            season_average=(seasons_cost*seasons_yield)//seasons_yield
             
             print(seasons_yield)
         except ZeroDivisionError:
