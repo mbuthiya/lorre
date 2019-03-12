@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+import math
 # Create your models here.
 
 
@@ -114,7 +115,6 @@ class Season(models.Model):
         try:
             season_average=(seasons_cost*seasons_yield)//seasons_yield
             
-            print(seasons_yield)
         except ZeroDivisionError:
             print("Not divisible")
         
@@ -152,19 +152,21 @@ class Season(models.Model):
         this_year_yield = sum([yields.estimated_yield for yields in seasons if yields.expected_harvest_date.year==datetime.today().year])
         last_year_yield = sum([yields.estimated_yield for yields in seasons if yields.expected_harvest_date.year==datetime.today().year-1])
 
+
         if this_year_yield >= last_year_yield:
             status = "Increase"
         else:
             status = "Decrease"
         
         try:
-            percentage = (max(this_year_yield, last_year_yield) - min(
-                       this_year_yield, last_year_yield)) // max(this_year_yield, last_year_yield) * 100
+            percentage = ((max(this_year_yield, last_year_yield) - min(this_year_yield,
+                                                                     last_year_yield)) / max(this_year_yield, last_year_yield)) * 100
 
         except ZeroDivisionError:
             percentage=0
 
-        return status,percentage
+
+        return status,math.ceil(percentage)
 
 
 class FarmPractices(models.Model):

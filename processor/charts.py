@@ -136,8 +136,6 @@ class FarmTrend():
 
         years = range(farm.date_added.year-3, datetime.today().year + 1)
 
-        print(years)
-
         self.line_chart.x_labels = map(str, years)
 
         all_harvests = Season.objects.filter(farm=farm)
@@ -159,7 +157,6 @@ class FarmTrend():
             else:
                 data.append(None)
 
-        print(data)
         return data
 
     def generate(self,farm):
