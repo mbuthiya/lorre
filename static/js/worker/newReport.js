@@ -9,7 +9,7 @@ $("#comment-form").submit(function () {
         'data': form.serialize(),
         'dataType': 'json',
         'success': function (data) {
-            alert(data['success'])
+            console.log(data['success'])
         },
     })
 
@@ -27,7 +27,7 @@ $("#farm-crop-form").submit(function () {
         'data': form.serialize(),
         'dataType': 'json',
         'success': function (data) {
-            alert(data['success'])
+            console.log(data['success'])
 
         },
     })
@@ -46,7 +46,7 @@ $("#farm-manage-form").submit(function () {
         'data': form.serialize(),
         'dataType': 'json',
         'success': function (data) {
-            alert(data['success'])
+            console.log(data['success'])
 
         },
     })
@@ -65,7 +65,7 @@ $("#farm-input-form").submit(function () {
         'data': form.serialize(),
         'dataType': 'json',
         'success': function (data) {
-            alert(data['success'])
+            console.log(data['success'])
 
         },
     })
@@ -83,7 +83,7 @@ $("#farm-request-form").submit(function () {
         'data': form.serialize(),
         'dataType': 'json',
         'success': function (data) {
-            alert(data['success'])
+            console.log(data['success'])
 
         },
         "error":function(err){
