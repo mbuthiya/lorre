@@ -14,13 +14,13 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Login handler
 def loginWorker(request):
-    
+
     if request.method == "POST":
         phone_number = request.POST.get("number")
         password = request.POST.get("password")
 
         user = authenticate(request,username=phone_number,password=password)
-        
+
         if user is None:
             return redirect("worker-login")
         else:
@@ -33,19 +33,19 @@ def loginWorker(request):
 @login_required(login_url="worker-login")
 def farms(request):
     user = request.user
-    
-    # Get worker 
+
+    # Get worker
     try:
         print(user)
         manager = ExtensionWorker.objects.get(phone_number = user.username)
     except ObjectDoesNotExist:
         return Http404()
-    
+
 
     # Get all the farms
     farms = Farm.objects.filter(manager=manager)
-    
-    
+
+
     data ={"title":"My Farms","farms":farms,"manager":manager}
 
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/farms.html", "data": data})
@@ -79,7 +79,7 @@ def farm(request, id):
     # Get all farm Animals
     animals = FarmAnimals.objects.filter(farm_id=farm)
 
-    # Get all reports 
+    # Get all reports
     reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
 
     seasons = Season.objects.filter(farm=farm)
@@ -87,7 +87,7 @@ def farm(request, id):
     active_seasons = [
         active for active in seasons if active.season_active == True]
 
-    
+
 
     data = {"animals": animals, "farm": farm, "reports": reports,
             "practice": practices, "manager": manager, "title": farm.farmer_name+"'s Farm", "seasons": active_seasons}
@@ -107,29 +107,25 @@ def new_report(request,id,season):
         print("Could not find manager")
         raise Http404()
 
+    # Get farm
     try:
         farm = Farm.objects.get(pk=id)
-
     except ObjectDoesNotExist:
         print("Single Farm function: Object could not be found")
         raise Http404()
+
+    # Get season
     try:
         season = Season.objects.get(pk=season)
-
     except ObjectDoesNotExist:
         print("Single Season function: Object could not be found")
         raise Http404()
 
-    try:
-        reports = FarmReport.objects.get(season=season)
-        return redirect("report",reports.id)
+    report = FarmReport.objects.create(farm_id=farm,manager=manager,season=season)
+    report.save()
+    return redirect("report", report.id)
 
-    except ObjectDoesNotExist:
-        report = FarmReport.objects.create(farm_id=farm,manager=manager,season=season)
-        report.save()
-        return redirect("report", report.id)
 
-   
 
 
 @login_required(login_url="worker-login")
@@ -147,14 +143,14 @@ def report(request, id):
         report = FarmReport.objects.get(pk=id)
     except ObjectDoesNotExist:
         raise Http404()
-    
+
     crops = FarmCrop.objects.filter(report=report)
 
     cropInputs = CropInputs.objects.filter(report=report)
 
 
     cropManagement = CropManagement.objects.filter(report=report)
-    
+
     requests = Requests.objects.filter(report=report)
 
     data = {"title": "Report for "+report.farm_id.farmer_name,"manager":manager,"report":report,"crops":crops,"cropInputs":cropInputs,"cropManagement":cropManagement,"requests":requests}
@@ -237,11 +233,11 @@ def new_crop_Input(request, id):
     si = request.POST.get("si")
     date = request.POST.get("date")
 
-    try:    
+    try:
         report = FarmReport.objects.get(pk=id)
     except ObjectDoesNotExist:
         raise Http404()
-    
+
 
     cropInput = CropInputs.objects.create(report=report, product=product, product_quantity=int(quantity), product_quantity_si=si,date_of_use=date)
 
@@ -259,11 +255,11 @@ def new_crop_Request(request, id):
     cost= request.POST.get("cost")
     reason = request.POST.get("reason")
 
-    try:    
+    try:
         report = FarmReport.objects.get(pk=id)
     except ObjectDoesNotExist:
         raise Http404()
-    
+
 
     request = Requests.objects.create(report=report,name=name,cost=int(cost),reason=reason)
     request.save()
@@ -286,14 +282,14 @@ def new_season(request):
 
         # Get worker
         try:
-            
+
             farm_ac = Farm.objects.get(pk=farm)
             print(farm_ac)
         except ObjectDoesNotExist:
             return Http404()
         # Get worker
         try:
-            
+
             crop_ac = Crop.objects.get(pk=int(crop))
         except ObjectDoesNotExist:
             return Http404()
@@ -305,22 +301,19 @@ def new_season(request):
         return redirect("worker-farms")
 
     user = request.user
-    
-    # Get worker 
+
+    # Get worker
     try:
         print(user)
         manager = ExtensionWorker.objects.get(phone_number = user.username)
     except ObjectDoesNotExist:
         return Http404()
-    
+
 
     # Get all the farms
     farms = Farm.objects.filter(manager=manager)
     crops = Crop.objects.all()
-    
+
     data ={"title":"New Season","farms":farms,"manager":manager,"crops":crops}
 
     return render(request, "workerTemp/base.html", {"templateName": "workerTemp/newseason.html", "data": data})
-
-
-

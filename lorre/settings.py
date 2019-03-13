@@ -83,10 +83,8 @@ WSGI_APPLICATION = 'lorre.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "lorre",
-        'USER':'growManage',
-        'PASSWORD':os.environ.get("PASSWORD")
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
