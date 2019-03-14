@@ -19,7 +19,7 @@ def overview_week(request):
 
     if current_processor == None:
         return HttpResponseServerError
-    
+
     if not workers:
         data ={}
         return render(request, "dashboard-templates/dashboard.html", {"title": "Weekly Overview", "templateName": "dashboard-templates/week-data.html", "current_processor": current_processor, "data": data})
@@ -27,9 +27,9 @@ def overview_week(request):
     harvest_chart = ThisWeekHarvest(
         height=300,
         width=500,
-    
+
     ).generate()
-   
+
 
     harvest_amount, farms = Season.this_weeks_harvest()
     data = {"harvest_chart": harvest_chart, "harvest_amount":harvest_amount, "farms": farms}
@@ -54,7 +54,7 @@ def overview_trend(request):
     ).generate()
 
     total_investment = Season.total_investment()
-    
+
     average_cost = Season.average_cost_per()
 
     data = {"trend_chart": trend_chart,"added":Farm.added(),"average_yield":Season.average_yield(),"investment":total_investment,"cost":average_cost}
@@ -170,7 +170,7 @@ def new_worker(request):
     # End of post
     data={}
     return render(request, "dashboard-templates/dashboard.html", {"title": "New Worker", "templateName": "dashboard-templates/newWorker.html", "current_processor": current_processor, "data": data})
-    
+
 
 
 @login_required
@@ -182,7 +182,7 @@ def single_farm(request, id):
 
     if not workers:
        return redirect("week")
-    
+
     # Check if farm exists
     farm = ""
     try:
@@ -191,11 +191,11 @@ def single_farm(request, id):
     except ObjectDoesNotExist:
         print("Single Farm function: Object could not be found")
         raise Http404()
-    
+
     # Get farm information
     # Sum of yeild from this and previous season
     status,percentage = Season.get_farm_yield(farm)
-    
+
     seasons = Season.objects.filter(farm=farm)
     active_seasons = [active for active in seasons if active.season_active==True]
 
@@ -213,17 +213,16 @@ def single_farm(request, id):
         practices=None
 
 
-    
     # Get all farm Animals
     animals = FarmAnimals.objects.filter(farm_id =farm)
 
     # Get all reports
     reports = FarmReport.objects.filter(farm_id=farm).order_by("-report_date")
-    
+    print(reports)
     data={"status":status,"percentage":percentage,"farm_trend":farm_chart,"animals":animals,"farm":farm,"reports":reports,"practice":practices,"seasons":active_seasons}
-    
+
     return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/farm.html", "current_processor": current_processor, "data": data})
-    
+
 
 
 
@@ -236,19 +235,19 @@ def single_report(request, id):
 
     if not workers:
        return redirect("week")
-    
+
     # Check if the report exists
     try:
         report = FarmReport.objects.get(pk=id)
     except ObjectDoesNotExist:
         return Http404()
-    
+
     crops = FarmCrop.objects.filter(report = report)
 
     cropInputs = CropInputs.objects.filter(report=report)
 
     cropManagement = CropManagement.objects.filter(report=report)
-    
+
     data = {"report":report,"crops":crops,"cropInputs":cropInputs,"cropManagement":cropManagement}
 
     return render(request, "dashboard-templates/dashboard.html", {"title": "Farm", "templateName": "dashboard-templates/report.html", "current_processor": current_processor, "data": data})
@@ -258,10 +257,10 @@ def single_report(request, id):
 def profile(request, id):
 
     if request.method == "POST" and request.FILES['image']:
-        
+
         country = request.POST["cCountry"]
         company_image = request.FILES["image"]
-        
+
 
         fs = FileSystemStorage()
         filename = fs.save(company_image.name,company_image)
@@ -276,7 +275,7 @@ def profile(request, id):
 
     except ObjectDoesNotExist:
         print("Error")
-        
+
     return render(request, "auth-templates/profile.html",{"processor":processor})
 
 
@@ -291,7 +290,7 @@ def newCrop(request):
         newCrop.save()
     else:
         return redirect("week")
-    
+
 
 def signup(request):
 
@@ -306,20 +305,20 @@ def signup(request):
         newUser = User.objects.create_user(username=email,email=email,password=password)
         newUser.save()
 
-        # Create a new Processor 
+        # Create a new Processor
         newProcessor = Processor(user=newUser,company_name=username)
         newProcessor.save()
 
         # Login and redirect new user
         login(request,newUser)
         return redirect("profile",newProcessor.id)
-        
+
 
     return render(request,"auth-templates/signup.html")
 
 
 def loginFunction(request):
-    
+
     if request.method == "POST":
 
         # Grab form data
@@ -354,10 +353,10 @@ def getUser(request):
 
     try:
         current_processor = Processor.objects.get(user=user)
-       
+
     except ObjectDoesNotExist:
         print("User Does Not Exist")
-    
+
     workers = [workers for workers in ExtensionWorker.objects.filter(processor=current_processor)]
 
     if len(workers) > 0:
